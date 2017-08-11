@@ -20,6 +20,19 @@ public class User {
 	private InputStream photo;
 	private Timestamp registerTime;
 	
+	/**
+	 * 构造方法
+	 * @param userName
+	 * @param password
+	 * @param phoneNumber
+	 */
+	public User(String userName, String password, String phoneNumber) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
+	}
+	
 	public int getId() {
 		return id;
 	}
