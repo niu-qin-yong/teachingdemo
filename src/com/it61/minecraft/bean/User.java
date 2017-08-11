@@ -12,5 +12,5 @@ public class User {
 	private String star;
 	private String email;
 	private String grade;
-	private String experience;
+	private int experience;
 }
