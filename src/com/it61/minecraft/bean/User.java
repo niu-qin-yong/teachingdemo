@@ -15,7 +15,7 @@ public class User {
 	private String star;
 	private String email;
 	private String grade;
-	private String experience;
+	private int experience;
 	private String birth;
 	private InputStream photo;
 	private Timestamp registerTime;
@@ -99,10 +99,10 @@ public class User {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
-	public String getExperience() {
+	public int getExperience() {
 		return experience;
 	}
-	public void setExperience(String experience) {
+	public void setExperience(int experience) {
 		this.experience = experience;
 	}
 	public String getBirth() {
