@@ -3,6 +3,7 @@ package com.it61.minecraft.service.impl;
 import java.util.List;
 
 import com.it61.minecraft.bean.User;
+import com.it61.minecraft.dao.UserDAO;
 import com.it61.minecraft.service.UserService;
 
 public class UserServiceImpl implements UserService {
@@ -15,8 +16,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User login(String userName, String passWord) {
-		// TODO Auto-generated method stub
-		return null;
+		UserDAO dao = new UserDAO();
+		return  dao.query(userName, passWord);
 	}
 
 	@Override
