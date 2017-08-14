@@ -10,15 +10,20 @@ public class User {
 	private String nickName;
 	private String gender;
 	private int age;
-	private String banji;
+	private int banji;
 	private String phoneNumber;
 	private String star;
 	private String email;
-	private String grade;
+	private int grade;
 	private int experience;
 	private String birth;
 	private InputStream photo;
 	private Timestamp registerTime;
+	
+	/**
+	 * 空构造方法
+	 */
+	public User(){};
 	
 	/**
 	 * 构造方法
@@ -33,6 +38,29 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 	
+	public User(int id, String userName, String password, String nickName,
+			String gender, int age, int banji, String phoneNumber,
+			String star, String email, int grade, int experience,
+			String birth, InputStream photo, Timestamp registerTime) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.nickName = nickName;
+		this.gender = gender;
+		this.age = age;
+		this.banji = banji;
+		this.phoneNumber = phoneNumber;
+		this.star = star;
+		this.email = email;
+		this.grade = grade;
+		this.experience = experience;
+		this.birth = birth;
+		this.photo = photo;
+		this.registerTime = registerTime;
+	}
+
+
 	public int getId() {
 		return id;
 	}
@@ -69,10 +97,10 @@ public class User {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public String getBanji() {
+	public int getBanji() {
 		return banji;
 	}
-	public void setBanji(String banji) {
+	public void setBanji(int banji) {
 		this.banji = banji;
 	}
 	public String getPhoneNumber() {
@@ -93,10 +121,10 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getGrade() {
+	public int getGrade() {
 		return grade;
 	}
-	public void setGrade(String grade) {
+	public void setGrade(int grade) {
 		this.grade = grade;
 	}
 	public int getExperience() {
