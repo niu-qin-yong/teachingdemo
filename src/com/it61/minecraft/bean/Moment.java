@@ -14,6 +14,8 @@ public class Moment {
 	private String senderName;
 	private Timestamp sendTime;
 	private int senderExperience;
+	private List<Favor> favors;
+	private List<Comment> comments;
 	
 	public int getId() {
 		return id;
@@ -70,6 +72,17 @@ public class Moment {
 	public void setSenderExperience(int senderExperience) {
 		this.senderExperience = senderExperience;
 	}
-	
+	public List<Favor> getFavors() {
+		return favors;
+	}
+	public void setFavors(List<Favor> favors) {
+		this.favors = favors;
+	}
+	public List<Comment> getComments() {
+		return comments;
+	}
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 	
 }

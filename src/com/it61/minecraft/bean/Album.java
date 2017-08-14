@@ -10,6 +10,7 @@ public class Album {
 	private String name;
 	private String des;
 	private Timestamp createTime;
+	private List<Picture> pics;
 	
 	public Timestamp getCreateTime() {
 		return createTime;
@@ -40,5 +41,11 @@ public class Album {
 	}
 	public void setDes(String des) {
 		this.des = des;
+	}
+	public List<Picture> getPics() {
+		return pics;
+	}
+	public void setPics(List<Picture> pics) {
+		this.pics = pics;
 	}
 }
