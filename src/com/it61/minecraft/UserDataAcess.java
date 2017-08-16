@@ -1,4 +1,4 @@
-package com.it61.minecraft.dao;
+package com.it61.minecraft;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -11,7 +11,7 @@ import java.util.List;
 import com.it61.minecraft.bean.User;
 import com.it61.minecraft.common.ConnectionFactory;
 
-public class UserDAO {
+public class UserDataAcess {
 	
 	/**
 	 * 根据用户id删除用户
@@ -24,7 +24,7 @@ public class UserDAO {
 		try {
 			conn=ConnectionFactory.getConnection();
 			
-			String sql = "delete from users where id=?";
+			String sql = "delete from mc_user where ID=?";
 			Object[] args = {userId};
 			
 			pstmt=conn.prepareStatement(sql);
@@ -49,7 +49,7 @@ public class UserDAO {
 			conn=ConnectionFactory.getConnection();
 			
 			String sql = "insert into "
-					+ "users(username,password,phonenumber,experience)"
+					+ "mc_user(user_name,user_pass_word,user_phone_number,user_experience)"
 					+ "values(?,?,?,?)";
 			Object[] args = {user.getUserName(),user.getPassword(),user.getPhoneNumber(),user.getExperience()};
 			
@@ -74,9 +74,9 @@ public class UserDAO {
 		try {
 			conn=ConnectionFactory.getConnection();
 			
-			String sql = "update users "
-					+ "set username=?,password=?,nick_name=?,gender=?,age=?,birth=?,class=?,phonenumber=?,photo=?,star=?,email=?,grade=?"
-					+ " where id=?"; //注意where和之前的字符之间有空格，不要因为换行忘记了
+			String sql = "update mc_user "
+					+ "set user_name=?,user_pass_word=?,user_nick_name=?,user_gender=?,user_age=?,user_birth_day=?,user_class=?,user_phone_number=?,user_photo=?,user_star=?,user_email=?,user_grade=?"
+					+ " where ID=?"; //注意where和之前的字符之间有空格，不要因为换行忘记了
 			Object[] args = {
 					user.getUserName(),user.getPassword(),user.getNickName()
 					,user.getGender(),user.getAge(),user.getBirth()
@@ -109,7 +109,7 @@ public class UserDAO {
             try {  
                 conn=ConnectionFactory.getConnection();  
                 
-        		String sql = "select * from users where username=? and password=?";
+        		String sql = "select * from mc_user where user_name=? and user_pass_word=?";
         		Object[] args = {userName,password};
         		
                 pstmt=conn.prepareStatement(sql);  
@@ -118,21 +118,21 @@ public class UserDAO {
                 }  
                 rs=pstmt.executeQuery();  
                 if (rs.next()) {  
-        			int id = rs.getInt("id");
-        			String username = rs.getString("username");
-        			String pwd = rs.getString("password");
-        			String nickName = rs.getString("nick_name");
-        			String gender = rs.getString("gender");
-        			int age = rs.getInt("age");
-        			String birth = rs.getString("birth");
-        			int banji = rs.getInt("class");
-        			String phoneNumber = rs.getString("phonenumber");
-        			InputStream photo = rs.getBinaryStream("photo");
-        			String star = rs.getString("star");
-        			String email = rs.getString("email");
-        			int grade = rs.getInt("grade");
-        			int experience = rs.getInt("experience");
-        			Timestamp registerTime = rs.getTimestamp("register_time");
+        			int id = rs.getInt("ID");
+        			String username = rs.getString("user_name");
+        			String pwd = rs.getString("user_pass_word");
+        			String nickName = rs.getString("user_nick_name");
+        			String gender = rs.getString("user_gender");
+        			int age = rs.getInt("user_age");
+        			String birth = rs.getString("user_birth_day");
+        			int banji = rs.getInt("user_class");
+        			String phoneNumber = rs.getString("user_phone_number");
+        			InputStream photo = rs.getBinaryStream("user_photo");
+        			String star = rs.getString("user_star");
+        			String email = rs.getString("user_email");
+        			int grade = rs.getInt("user_grade");
+        			int experience = rs.getInt("user_experience");
+        			Timestamp registerTime = rs.getTimestamp("user_register_time");        			
   
         			user = new User(id,username,pwd,nickName,gender,age,banji,phoneNumber,star,email,grade,experience,birth,photo,registerTime);
                 }  
@@ -169,25 +169,23 @@ public class UserDAO {
 				}
 				rs=pstmt.executeQuery();
 				while (rs.next()) {
-					
-        			int id = rs.getInt("id");
-        			String username = rs.getString("username");
-        			String pwd = rs.getString("password");
-        			String nickName = rs.getString("nick_name");
-        			String gender = rs.getString("gender");
-        			int age = rs.getInt("age");
-        			String birth = rs.getString("birth");
-        			int banji = rs.getInt("class");
-        			String phoneNumber = rs.getString("phonenumber");
-        			InputStream photo = rs.getBinaryStream("photo");
-        			String star = rs.getString("star");
-        			String email = rs.getString("email");
-        			int grade = rs.getInt("grade");
-        			int experience = rs.getInt("experience");
-        			Timestamp registerTime = rs.getTimestamp("register_time");
+        			int id = rs.getInt("ID");
+        			String username = rs.getString("user_name");
+        			String pwd = rs.getString("user_pass_word");
+        			String nickName = rs.getString("user_nick_name");
+        			String gender = rs.getString("user_gender");
+        			int age = rs.getInt("user_age");
+        			String birth = rs.getString("user_birth_day");
+        			int banji = rs.getInt("user_class");
+        			String phoneNumber = rs.getString("user_phone_number");
+        			InputStream photo = rs.getBinaryStream("user_photo");
+        			String star = rs.getString("user_star");
+        			String email = rs.getString("user_email");
+        			int grade = rs.getInt("user_grade");
+        			int experience = rs.getInt("user_experience");
+        			Timestamp registerTime = rs.getTimestamp("user_register_time"); 
   
         			User user = new User(id,username,pwd,nickName,gender,age,banji,phoneNumber,star,email,grade,experience,birth,photo,registerTime);
-                
         			
 					list.add(user);			
 				}
