@@ -1,0 +1,132 @@
+#album {
+	width: 540px;
+	height: 400px;
+	margin-left: 65px;
+	border-radius: 40px;
+	background: rgba(255,255,255,0.7);
+	position: relative;
+}
+.album-header{
+	margin: 10px;
+}
+.album-content{
+	width: 510px;
+	height: 300px;
+	overflow: auto;
+}
+.album-list{
+	width: 160px;
+	height: 160px;
+	float: left;
+	margin: 0px 0px 10px 5px;
+	background: rgba(255,255,255,0.7);
+	background-position:center;
+	background-repeat:no-repeat;
+	border-radius: 30px;
+	border: 2px solid rgba(255,255,255,0.8);
+	position: relative;
+}
+.album-name,.album-upload,.album-brower{
+	width:100%;
+	height:auto;
+	text-align: center;
+	font-size: 20px;
+	background-color:rgba(0,0,0,0.2);
+	padding: 5px;
+	box-sizing: border-box;
+}
+.album-name{
+	border-radius:0px 0px 30px 30px;
+	position: absolute;
+	left:0;
+	bottom: 0;
+}
+.album-upload{
+	border-radius:30px 30px 0px 0px;
+	position: absolute;
+	left:0;
+	top: 0;
+	cursor: pointer;
+}
+.album-upload > input{
+	width:100%;
+	height:100%;
+	opacity:0;
+	position: absolute;
+	left:0;
+	top:0;
+	cursor: pointer;
+	font-size:0
+}
+.album-brower{
+	border-radius:0px 0px 30px 30px;
+	position: absolute;
+	left:0;
+	bottom: 0;
+	cursor: pointer;
+}
+
+.album-pictures {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.album-pictures > li {
+  float: left;
+  width: 33.3%;
+  height: 33.3%;
+  margin: 0 -1px -1px 0;
+  border: 1px solid transparent;
+  overflow: hidden;
+}
+
+.album-pictures > li > img {
+  width: 100%;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
+
+/* 轮播图 */
+#slider {
+	overflow: hidden;
+}
+#images {
+	padding: 0;
+	margin: 0;
+	height: 340px;
+	position: relative;
+	left: 0px;
+}
+#images li {
+	list-style: none;
+	float: left;
+}
+#images li img {
+	width: 100%;
+	height: 320px;
+	border-radius: 50px;
+}
+#index {
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	height: 30px;
+	text-align: center;
+}
+#index li {
+	display: inline-block;
+	list-style: none;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 20px;
+	cursor: pointer;
+	background-color: #3e3e3e;
+	color: white;
+	margin: 0 10px;
+}
+#index .current {
+	background-color: #b61b1f;
+}

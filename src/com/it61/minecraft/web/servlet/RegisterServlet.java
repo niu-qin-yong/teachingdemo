@@ -43,7 +43,9 @@ public class RegisterServlet extends HttpServlet {
 			UserService userService = new UserServiceImpl();
 			userService.register(user);
 			
-			response.getWriter().write("恭喜您注册成功");
+			//注册成功，重定向到登录页面
+			String application = getServletContext().getContextPath();
+			response.sendRedirect(application+"/login.html");
 		} catch (Exception e) {
 			e.printStackTrace();
 			//TODO 注册失败

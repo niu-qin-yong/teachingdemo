@@ -84,7 +84,7 @@ public class UserDAO implements OnTransformListener<User> {
 	 * @return
 	 */
 	public User query(String userName,String password){
-		String sql = "select * from users where username=? and password=?";
+		String sql = "select * from mc_user where user_name=? and user_pass_word=?";
 		Object[] args = {userName,password};
         return template.queryOne(sql, args);  
 	}
@@ -103,21 +103,21 @@ public class UserDAO implements OnTransformListener<User> {
 	public User onTransform(ResultSet rs) {
 		User user = null;
 		try{
-			int id = rs.getInt("id");
-			String username = rs.getString("username");
-			String pwd = rs.getString("password");
-			String nickName = rs.getString("nick_name");
-			String gender = rs.getString("gender");
-			int age = rs.getInt("age");
-			String birth = rs.getString("birth");
-			int banji = rs.getInt("class");
-			String phoneNumber = rs.getString("phonenumber");
-			InputStream photo = rs.getBinaryStream("photo");
-			String star = rs.getString("star");
-			String email = rs.getString("email");
-			int grade = rs.getInt("grade");
-			int experience = rs.getInt("experience");
-			Timestamp registerTime = rs.getTimestamp("register_time");
+			int id = rs.getInt("ID");
+			String username = rs.getString("user_name");
+			String pwd = rs.getString("user_pass_word");
+			String nickName = rs.getString("user_nick_name");
+			String gender = rs.getString("user_gender");
+			int age = rs.getInt("user_age");
+			String birth = rs.getString("user_birth_day");
+			int banji = rs.getInt("user_class");
+			String phoneNumber = rs.getString("user_phone_number");
+			InputStream photo = rs.getBinaryStream("user_photo");
+			String star = rs.getString("user_star");
+			String email = rs.getString("user_email");
+			int grade = rs.getInt("user_grade");
+			int experience = rs.getInt("user_experience");
+			Timestamp registerTime = rs.getTimestamp("user_register_time");
 			
 			user = new User(id,username,pwd,nickName,gender,age,banji,phoneNumber,star,email,grade,experience,birth,photo,registerTime);
 		}catch(Exception e){

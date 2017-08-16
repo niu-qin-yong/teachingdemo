@@ -26,16 +26,16 @@ public class LoginServlet extends HttpServlet {
 		UserService userService = new UserServiceImpl();
 		User user = userService.login(uname,psw);
 		
-		String text;
 		if(user != null){
-			//登录成功
-			text = "login success";
+			//登录成功,重定向到首页
+			response.sendRedirect(getServletContext().getContextPath()+"/index.html");
 		}else{
 			//登录失败
-			text = "login fail,username or password isn't right";
+			String text = "login fail,username or password isn't right";
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().write("name:"+uname+"<br/>pwd:"+psw+"<br/>");
+			response.getWriter().write(text);
 		}
-		response.getWriter().write("name:"+uname+"	pwd:"+psw+"<br/>");
-		response.getWriter().write(text);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
