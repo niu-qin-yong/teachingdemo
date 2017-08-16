@@ -52,7 +52,7 @@ public class UserDAO implements OnTransformListener<User> {
 	 */
 	public void insert(User user) throws Exception{
 		String sql = "insert into "
-				+ "users(username,password,phonenumber,experience)"
+				+ "mc_user(user_name,user_pass_word,user_phone_number,user_experience)"
 				+ "values(?,?,?,?)";
 		Object[] args = {user.getUserName(),user.getPassword(),user.getPhoneNumber(),user.getExperience()};
 		
