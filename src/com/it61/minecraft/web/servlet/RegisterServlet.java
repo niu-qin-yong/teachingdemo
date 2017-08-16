@@ -33,8 +33,21 @@ public class RegisterServlet extends HttpServlet {
 		String info = "userName:"+userName+"<br/>password:"+password+"<br/>repassword:"+repassword+"<br/>phoneNumber:"
 				+phoneNumber+"<br/>inviteCode:"+inviteCode;
 		
-		response.setContentType("text/html;charset=UTF-8");
-		response.getWriter().write("您提交的注册信息<hr/>"+info);
+//		response.setContentType("text/html;charset=UTF-8");
+//		response.getWriter().write("您提交的注册信息<hr/>"+info);
+		
+		//将数据封装到JavaBean
+		User user = new User(userName,password,phoneNumber);
+		
+		//调用UserService的注册的方法
+		try {
+			UserService userService = new UserServiceImpl();
+			userService.register(user);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			//TODO 注册失败
+		}
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
