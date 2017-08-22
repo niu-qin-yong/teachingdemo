@@ -94,7 +94,7 @@ public class UserDAO implements OnTransformListener<User> {
 	 * @return
 	 */
 	public List<User> queryAll(){
-		String sql = "select * from users";
+		String sql = "select * from mc_user";
 		Object[] args = {};
 		return template.queryAll(sql, args);
 	}
