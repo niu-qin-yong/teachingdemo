@@ -1,4 +1,34 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@page import="com.it61.minecraft.common.*" %>
+
+<%-- 读取cookie --%>
+<%
+	String name = "";
+	String password = "";
+	try {
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals("cookie-user")) {
+					String values = cookies[i].getValue();
+					// 如果value字段不为空 
+					if (StringUtils.isNotEmpty(values)) {
+						String[] elements = values.split("-");
+						// 获取账户名或者密码 
+						if (StringUtils.isNotEmpty(elements[0])) {
+							name = elements[0];
+						}
+						if (StringUtils.isNotEmpty(elements[1])) {
+							password = elements[1];
+						}
+					}
+				}
+			}
+		}
+	} catch (Exception e) {
+	}
+%>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +37,7 @@
 <meta name="Author" content="">
 <meta name="Keywords" content="">
 <meta name="Description" content="">
-<title>Document</title>
+<title>登录</title>
 <link rel="stylesheet" href="/minecraft/css/login.css">
 </head>
 <body>
@@ -27,11 +57,11 @@
 				<table class="tb">
 					<tr>
 						<td class="t1 user">
-						<input class="name_pwd" name="uname" type="text" placeholder="用户名" value=""><span></span></td>
+						<input class="name_pwd" name="uname" type="text" placeholder="用户名" value="<%=name%>"><span></span></td>
 					</tr>
 					<tr>
 						<td class="t1 passw"><input class="name_pwd" name="pw"
-							type="password" placeholder="密码" value=""></td>
+							type="password" placeholder="密码" value="<%=password%>"></td>
 					</tr>
 
 					<tr id="prompt">

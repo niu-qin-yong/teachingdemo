@@ -3,6 +3,7 @@ package com.it61.minecraft.web.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,10 +27,22 @@ public class LoginServlet extends HttpServlet {
 		UserService userService = new UserServiceImpl();
 		User user = userService.login(uname,psw);
 		
+		//创建Cookie对象，保存用户名或者密码，如果密码正确就都保存，否则只保存用户名
+		Cookie cookie = new Cookie("cookie-user", uname);
+		cookie.setMaxAge(3*24*60*60);
+		cookie.setPath("/minecraft/login");
+		
 		if(user != null){
+			//密码正确，使用Cookie保存密码
+			cookie.setValue(uname+"-"+psw);
+			response.addCookie(cookie);
+			
 			//登录成功,重定向到首页
 			response.sendRedirect(getServletContext().getContextPath()+"/index.html");
 		}else{
+			//将Cookie添加给response，让浏览器保存
+			response.addCookie(cookie);
+			
 			//登录失败
 			String text = "login fail,username or password isn't right";
 			response.setContentType("text/html;charset=UTF-8");
