@@ -25,7 +25,7 @@ public class LogoutServlet extends HttpServlet {
 			System.out.println(user.getUserName()+"下线");
 		}
 		
-		//重定向到登录页面
+		//重定向到登录页面,这里不需要重写URL，因为没有Session才需要去登录的
 		response.sendRedirect(request.getContextPath()+"/login");
 	}
 

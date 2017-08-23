@@ -41,7 +41,10 @@ public class LoginServlet extends HttpServlet {
 			request.getSession().setAttribute("user", user);
 			
 			//登录成功,重定向到首页
-			response.sendRedirect(getServletContext().getContextPath()+"/index.html");
+//			response.sendRedirect(getServletContext().getContextPath()+"/index.html");
+			//防止浏览器端禁用Cookie导致Session无法使用，重写URL
+			String encodeRedirectURL = response.encodeRedirectURL(getServletContext().getContextPath()+"/index.html");
+			response.sendRedirect(encodeRedirectURL);
 		}else{
 			//将Cookie添加给response，让浏览器保存
 			response.addCookie(cookie);
