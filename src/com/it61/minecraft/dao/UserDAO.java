@@ -125,4 +125,12 @@ public class UserDAO implements OnTransformListener<User> {
 		}
 		return user;
 	}
+
+	public List<User> queryClassmates(User user) {
+		String sql = "select * from mc_user where user_grade=? and user_class=? order by user_experience desc";
+		Object[] args = {user.getGrade(),user.getBanji()};
+		List<User> classmates = template.queryAll(sql, args);
+		
+		return classmates;
+	}
 }
