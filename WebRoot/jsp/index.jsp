@@ -13,10 +13,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 /* 当前用户 */
 User user = (User)session.getAttribute("user");
+String userString = JSON.toJSONString(user);
 
 /* 获取校友录，也就是当前所有用户 */
-UserService service = new UserServiceImpl();
-List<User> schoolmates = service.getAllUsers();
+UserService userService = new UserServiceImpl();
+List<User> schoolmates = userService.getAllUsers();
 //将对象序列化为string
 String schoolmatesString = JSON.toJSONString(schoolmates);
 
@@ -26,6 +27,9 @@ List<Friend> allFriends = friService.getAllFriends(user);
 //将好友List序列化为string
 String allFriendsString = JSON.toJSONString(allFriends);
 
+/* 获取班级同学 */
+List<User> classmates = userService.getClassmates(user);
+String classmatesString = JSON.toJSONString(classmates);
 %>
 
 <!DOCTYPE html>
@@ -48,12 +52,18 @@ String allFriendsString = JSON.toJSONString(allFriends);
 			/* 应用路径 */
 			var basePath = "<%=basePath%>";
 			
+			/* 当前用户 */
+			var user = JSON.parse('<%=userString%>');
+			
 			/* 校友录 */
 			//将string转成JavaScript中的对象
 			var schoolmatesObj = JSON.parse('<%=schoolmatesString%>');
 			
 			/* 我的好友 */
 			var allFriendsObj = JSON.parse('<%=allFriendsString%>');
+			
+			/* 班级同学 */
+			var classmatesObj = JSON.parse('<%=classmatesString%>');
 		</script>
 	
 		<!-- 用户登录部分 -->
@@ -345,51 +355,7 @@ String allFriendsString = JSON.toJSONString(allFriends);
 		                <div class="classmask"></div>
 		                <div class="classbgdecoration"></div>
 		                <div class="classmate" id="classmate">
-							<div class="classmatee" id="classmate1">
-		                        <div class="jiangpai"></div>
-		                        <div class="classmatephoto"></div>
-		                        <div class="classmatename">Martha</div>
-		                        <div class="classmatecaozuo">
-		                            <a href="javascript:void(0)"></a>
-		                            <a href="javascript:void(0)"></a>
-		                        </div>
-		                    </div>
-		                    <div class="classmatee" id="classmate2">
-		                        <div class="jiangpai"></div>
-		                        <div class="classmatephoto"></div>
-		                        <div class="classmatename">Fabian</div>
-		                        <div class="classmatecaozuo">
-		                            <a href="javascript:void(0)"></a>
-		                            <a href="javascript:void(0)"></a>
-		                        </div>
-		                    </div>
-		                    <div class="classmatee" id="classmate3">
-		                        <div class="jiangpai"></div>
-		                        <div class="classmatephoto"></div>
-		                        <div class="classmatename">Chindy</div>
-		                        <div class="classmatecaozuo">
-		                            <a href="javascript:void(0)"></a>
-		                            <a href="javascript:void(0)"></a>
-		                        </div>
-		                    </div>
-		                    <div class="classmatee" id="classmate4">
-		                        <div class="jiangpai"></div>
-		                        <div class="classmatephoto"></div>
-		                        <div class="classmatename">Jackson</div>
-		                        <div class="classmatecaozuo">
-		                            <a href="javascript:void(0)"></a>
-		                            <a href="javascript:void(0)"></a>
-		                        </div>
-		                    </div>
-		                    <div class="classmatee" id="classmate5">
-		                        <div class="jiangpai"></div>
-		                        <div class="classmatephoto"></div>
-		                        <div class="classmatename">Jackson</div>
-		                        <div class="classmatecaozuo">
-		                            <a href="javascript:void(0)"></a>
-		                            <a href="javascript:void(0)"></a>
-		                        </div>
-		                    </div>		                
+							       
 		                </div>				
 					</div>
 					<div id="schoolfellows8" class="showcontent">
@@ -557,6 +523,7 @@ String allFriendsString = JSON.toJSONString(allFriends);
 	<script src="<%=basePath %>js/main.js"></script>
 	<script src="<%=basePath %>js/schoolmates.js"></script>
 	<script src="<%=basePath %>js/friends.js"></script>
+	<script src="<%=basePath %>js/classmates.js"></script>
 	
 	<script type="text/javascript">
 		//音乐播放
@@ -565,6 +532,8 @@ String allFriendsString = JSON.toJSONString(allFriends);
 		showSchoolmates();
 		//显示好友
 		showFriends();
+		//显示班级同学
+		showClassmates();
 	</script>
 	
 </html>

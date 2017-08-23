@@ -28,8 +28,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getClassmates(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		UserDAO userDAO = new UserDAO();
+		List<User> classmates = userDAO.queryClassmates(user);
+		return classmates;
 	}
 
 	@Override
