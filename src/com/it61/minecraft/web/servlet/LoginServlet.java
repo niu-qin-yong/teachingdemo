@@ -37,6 +37,9 @@ public class LoginServlet extends HttpServlet {
 			cookie.setValue(uname+"-"+psw);
 			response.addCookie(cookie);
 			
+			//Session中添加登录状态
+			request.getSession().setAttribute("user", user);
+			
 			//登录成功,重定向到首页
 			response.sendRedirect(getServletContext().getContextPath()+"/index.html");
 		}else{

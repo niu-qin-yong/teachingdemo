@@ -11,6 +11,9 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 
+/* 当前用户 */
+User user = (User)session.getAttribute("user");
+
 /* 获取校友录，也就是当前所有用户 */
 UserService service = new UserServiceImpl();
 List<User> schoolmates = service.getAllUsers();
@@ -45,6 +48,14 @@ String schoolmatesString = JSON.toJSONString(schoolmates);
 		</script>
 	
 		<!-- 用户登录部分 -->
+		<%
+		String username = user.getUserName();
+		if(username != null){
+		%>
+		
+		<div>欢迎&nbsp;<b><%=username %></b>&nbsp;<a href="<%=basePath%>servlet/LogoutServlet">注销</a></div>
+		
+		<%}%>
 
 		<!--外部框架-->
 		<div id="base">
