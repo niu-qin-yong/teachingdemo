@@ -19,6 +19,13 @@ UserService service = new UserServiceImpl();
 List<User> schoolmates = service.getAllUsers();
 //将对象序列化为string
 String schoolmatesString = JSON.toJSONString(schoolmates);
+
+/* 获取好友 */
+FriendService friService = new FriendServiceImpl();
+List<Friend> allFriends = friService.getAllFriends(user);
+//将好友List序列化为string
+String allFriendsString = JSON.toJSONString(allFriends);
+
 %>
 
 <!DOCTYPE html>
@@ -45,6 +52,8 @@ String schoolmatesString = JSON.toJSONString(schoolmates);
 			//将string转成JavaScript中的对象
 			var schoolmatesObj = JSON.parse('<%=schoolmatesString%>');
 			
+			/* 我的好友 */
+			var allFriendsObj = JSON.parse('<%=allFriendsString%>');
 		</script>
 	
 		<!-- 用户登录部分 -->
@@ -329,16 +338,6 @@ String schoolmatesString = JSON.toJSONString(schoolmates);
 						<div class="classmask"></div>
 		                <div class="friendbgdecoration"></div>
 		                <div class="friendcontent" id="friendcontent">
-		                    <div class="friendee" id="friendd1">
-		                        <div class="gfriendphoto"></div>
-		                        <div class="gfriendname">Cindy</div>
-		                        <div class="gfriendchat">聊天</div>
-		                    </div>
-		                    <div class="friendee" id="friendd2">
-		                        <div class="gfriendphoto"></div>
-		                        <div class="gfriendname">Jackson</div>
-		                        <div class="gfriendchat">聊天</div>
-		                    </div>		                
 		                	<div class="multichat" onclick="multichat()"></div>
 		                </div>
 					</div>
@@ -557,12 +556,15 @@ String schoolmatesString = JSON.toJSONString(schoolmates);
 	<script src="<%=basePath %>js/slider.js"></script>
 	<script src="<%=basePath %>js/main.js"></script>
 	<script src="<%=basePath %>js/schoolmates.js"></script>
+	<script src="<%=basePath %>js/friends.js"></script>
 	
 	<script type="text/javascript">
 		//音乐播放
 		player.init();	  
 		//显示校友录
 		showSchoolmates();
+		//显示好友
+		showFriends();
 	</script>
 	
 </html>
