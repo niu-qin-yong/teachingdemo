@@ -50,8 +50,7 @@ public class LoginServlet extends HttpServlet {
 			response.addCookie(cookie);
 			
 			//登录失败
-			String text = "login fail,username or password isn't right";
-			response.setContentType("text/html;charset=UTF-8");
+			String text = "登录失败，用户名或者密码错误";
 			response.getWriter().write("name:"+uname+"<br/>pwd:"+psw+"<br/>");
 			response.getWriter().write(text);
 		}
