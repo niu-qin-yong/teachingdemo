@@ -49,13 +49,11 @@ String schoolmatesString = JSON.toJSONString(schoolmates);
 	
 		<!-- 用户登录部分 -->
 		<%
-		String username = user.getUserName();
-		if(username != null){
+			String username = user.getUserName();
+			String logoutURL = basePath+"servlet/LogoutServlet";
 		%>
-		
-		<div>欢迎&nbsp;<b><%=username %></b>&nbsp;<a href="<%=basePath%>servlet/LogoutServlet">注销</a></div>
-		
-		<%}%>
+		<div>欢迎&nbsp;<b><%=username %></b>&nbsp;<a href="<%=logoutURL%>">注销</a></div>
+
 
 		<!--外部框架-->
 		<div id="base">
