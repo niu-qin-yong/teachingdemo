@@ -129,9 +129,9 @@ function check() {
 //显示动态验证码,首次显示注册页面，用户点击验证码,注册失败这些情况下都更新验证码
 function showValidateCode() {
 	//后面实现动态验证时，放开下面代码
-/*	var div = document.querySelector("#vertify");
-	div.style.backgroundImage = "url(/minecraft/servlet/ValidateCodeServlet?randomId="
-			+ Math.random() + ")";*/
+	var div = document.querySelector("#vertify");
+	var codeURL = basePath+"servlet/ValidateCodeServlet?randomId=" + Math.random();
+	div.style.backgroundImage = "url("+ codeURL + ")";
 }
 
 showValidateCode();
