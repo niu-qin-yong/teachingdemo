@@ -122,7 +122,7 @@ function addFriend(a){
 			a.setAttribute("onclick",'removeFriend(this)');  
 		
 			//更新好友界面
-			//addEleFromFriends(a.getAttribute("data-friId"),a.getAttribute("data-friName"));
+			addEleFromFriends(a.getAttribute("data-friId"),a.getAttribute("data-friName"));
     	   }
        }
     }
@@ -142,16 +142,57 @@ function removeFriend(a){
     xmlhttp.onreadystatechange = function(){
        if(xmlhttp.readyState==4 && xmlhttp.status == 200){
     	   if(xmlhttp.responseText == "remove_friend_ok"){
-     	    a.style.backgroundImage="url("+basePath+"imgs/jiafriend.png)";
-	a.setAttribute("title","添加好友");
-	a.setAttribute("onclick",'addFriend(this)'); 
-	
-	//更新好友界面
-	removeEleFromFriends(a.getAttribute("data-friId"));
+	     	    a.style.backgroundImage="url("+basePath+"imgs/jiafriend.png)";
+				a.setAttribute("title","添加好友");
+				a.setAttribute("onclick",'addFriend(this)'); 
+		
+				//更新好友界面
+				removeEleFromFriends(a.getAttribute("data-friId"));
     	   }
        }
     }
     xmlhttp.open("post",basePath+"servlet/RemoveFriendServlet",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("owerId="+owerId+"&friId="+friId);			
+}
+
+/**
+*添加好友到好友界面
+**/
+function addEleFromFriends(friId,friName){
+	var friendee=document.createElement("div");
+	friendee.setAttribute("class","friendee");
+	friendee.setAttribute("id","fri"+friId);
+	
+	var gfriendphoto=document.createElement("div");
+	gfriendphoto.setAttribute("class","gfriendphoto");
+	//TODO 先使用默认头像
+	var defaultPhoto = basePath+"imgs/f1.gif";
+//	gfriendphoto.style.backgroundImage="url(<%=basePath%>/servlet/ShowPicServlet?id="+friId+")";	
+	gfriendphoto.style.backgroundImage="url("+defaultPhoto+")";	
+	friendee.appendChild(gfriendphoto);
+	
+	var gfriendname=document.createElement("div");
+	gfriendname.setAttribute("class","gfriendname");
+	gfriendname.innerHTML = friName;
+	friendee.appendChild(gfriendname);
+	
+	var gfriendchat=document.createElement("div");
+	gfriendchat.setAttribute("class","gfriendchat");
+	//TODO 聊天
+	//gfriendchat.setAttribute("onclick","javascript:chat(\"<%=user.getId()%>\","+friId+")");
+	gfriendchat.innerHTML = "聊天";
+	friendee.appendChild(gfriendchat);
+	
+	var parent = document.getElementById("friendcontent");
+	parent.appendChild(friendee);
+}
+
+/**
+*从好友界面移除好友
+**/
+function removeEleFromFriends(friId){
+	var parent = document.getElementById("friendcontent");
+	var child = document.getElementById("fri"+friId);
+	parent.removeChild(child);
 }
