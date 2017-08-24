@@ -25,6 +25,15 @@
     <servlet-name>ValidateCodeServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.ValidateCodeServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>CheckValidateCodeServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.CheckValidateCodeServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>register</servlet-name>
+  	<jsp-file>/jsp/register.jsp</jsp-file>
+  </servlet>
+
 
 
   <servlet-mapping>
@@ -68,6 +77,14 @@
     <servlet-name>ValidateCodeServlet</servlet-name>
     <url-pattern>/servlet/ValidateCodeServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CheckValidateCodeServlet</servlet-name>
+    <url-pattern>/servlet/CheckValidateCodeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>register</servlet-name>
+  	<url-pattern>/register</url-pattern>
+  </servlet-mapping>
   <!--统一处理编码的过滤器  -->
   <!-- 定义过滤器 -->
   <filter>
@@ -94,7 +111,7 @@
     <filter-class>com.it61.minecraft.web.filter.WhetherLogFilter</filter-class>
     <init-param>
       <param-name>excludedPages</param-name>
-      <param-value>/index.html,/login,/login.html,/login.htm,/jsp/login.jsp,/servlet/LoginServlet,/register.html,/servlet/RegisteServlet,/servlet/ValidateCodeServlet,/servlet/CheckValidateCodeServlet</param-value>
+      <param-value>/index.html,/login,/login.html,/login.htm,/jsp/login.jsp,/servlet/LoginServlet,/register,/servlet/RegisteServlet,/servlet/ValidateCodeServlet,/servlet/CheckValidateCodeServlet</param-value>
     </init-param>
   </filter>
   <!-- 定义过滤规则 -->
