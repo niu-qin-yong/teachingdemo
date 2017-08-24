@@ -41,6 +41,16 @@
   	<servlet-name>register</servlet-name>
   	<jsp-file>/jsp/register.jsp</jsp-file>
   </servlet>
+  <servlet>
+    <servlet-name>SettingServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.SettingServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ShowPicServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.ShowPicServlet</servlet-class>
+  </servlet>
+
+
 
 
   <servlet-mapping>
@@ -99,6 +109,14 @@
   <servlet-mapping>
   	<servlet-name>register</servlet-name>
   	<url-pattern>/register</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SettingServlet</servlet-name>
+    <url-pattern>/servlet/SettingServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ShowPicServlet</servlet-name>
+    <url-pattern>/servlet/ShowPicServlet</url-pattern>
   </servlet-mapping>
   <!--统一处理编码的过滤器  -->
   <!-- 定义过滤器 -->

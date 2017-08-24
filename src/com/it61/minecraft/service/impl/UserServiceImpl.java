@@ -22,8 +22,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updateInfo(User user) throws Exception {
-		// TODO Auto-generated method stub
-
+		UserDAO userDAO = new UserDAO();
+		userDAO.update(user);
 	}
 
 	@Override

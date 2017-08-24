@@ -5,6 +5,7 @@
 <%@page import="com.it61.minecraft.service.impl.*"%>
 <%@page import="com.alibaba.fastjson.*" %>
 <%@page import="com.alibaba.fastjson.serializer.*" %>
+<%@page import="com.it61.minecraft.common.*"%>
 
 <%
 /* 应用路径 */
@@ -410,8 +411,9 @@ String classmatesString = JSON.toJSONString(classmates);
 									<input type="file" name="photo" accept="image/png,image/jpeg" onchange="preView(this,$('#userphoto')[0])"/>
 								</a>
 							</div>
-							
+						
 							<div class="username">
+								<%=user.getUserName() %>
 							</div>
 							<div > 
 								<img id="userlevel"/>
@@ -420,24 +422,35 @@ String classmatesString = JSON.toJSONString(classmates);
 						<div id="edit">
 							<div id="nick">
 								<span> </span>
-								<input type="text" name="nickname" value=""/>
+								<input type="text" name="nickname" value="<%=user.getNickName()%>"/>
 							</div>
 							<div id="age">
 								<span> </span>
-								<input type="number" min="1" name="age" value=""/>
+								<input type="number" min="1" name="age" value="<%=user.getAge()%>"/>
 							</div>
 							<div id="birthday">
 								<span>  </span>
-								<input type="date" name="birthday" value=""/>
+								<input type="date" name="birthday" value="<%=user.getBirth()%>"/>
 							</div>
 							<div id="star">
 								<span> </span>
 								<select name="star" id="star-select">
+									<option value="<%=Stars.BYZ%>"><%=Stars.BYZ%></option>
+									<option value="<%=Stars.JNZ%>"><%=Stars.JNZ%></option>
+									<option value="<%=Stars.SHUANGZZ%>"><%=Stars.SHUANGZZ%></option>
+									<option value="<%=Stars.JXZ%>"><%=Stars.JXZ%></option>
+									<option value="<%=Stars.SHIZZ%>"><%=Stars.SHIZZ%></option>
+									<option value="<%=Stars.TCZ%>"><%=Stars.TCZ%></option>
+									<option value="<%=Stars.TXZ%>"><%=Stars.TXZ%></option>
+									<option value="<%=Stars.SSZ%>"><%=Stars.SSZ%></option>
+									<option value="<%=Stars.MJZ%>"><%=Stars.MJZ%></option>
+									<option value="<%=Stars.SPZ%>"><%=Stars.SPZ%></option>
+									<option value="<%=Stars.SYZ%>"><%=Stars.SYZ%></option>								
 								</select>
 							</div>
 							<div id="mail">
 								<span> </span>
-								<input type="text" name="email" value=""/>
+								<input type="text" name="email" value="<%=user.getEmail()%>"/>
 							</div>
 							<div id="myclass">
 								<span> </span>
@@ -464,18 +477,18 @@ String classmatesString = JSON.toJSONString(classmates);
 							</div>
 							<div id="phone">
 								<span> </span>
-								<input type="text" value="" name="phonenumber"/>
+								<input type="text" value="<%=user.getPhoneNumber()%>" name="phonenumber"/>
 							</div>
 							<div id="sex">
 								<span>  </span>
-								<input type="radio" name="gender"  value="male"/>
+								<input type="radio" name="gender" <%="male".equals(user.getGender())?"checked":""%> value="male"/>
 								<b>男</b>
-								<input type="radio" name="gender" value="female"/>
+								<input type="radio" name="gender"  <%="female".equals(user.getGender())?"checked":""%> value="female"/>
 								<b>女</b>
 							</div>
 							<div id="oldpass">
 								<span> </span>
-								<input  type="password" value=""/>
+								<input  type="password" value="<%=user.getPassword()%>"/>
 							</div>
 							<div id="newpass" >
 								<span> </span>
@@ -526,6 +539,7 @@ String classmatesString = JSON.toJSONString(classmates);
 	<script src="<%=basePath %>js/schoolmates.js"></script>
 	<script src="<%=basePath %>js/friends.js"></script>
 	<script src="<%=basePath %>js/classmates.js"></script>
+	<script src="<%=basePath %>js/setting.js"></script>
 	
 	<script type="text/javascript">
 		//音乐播放
@@ -536,6 +550,8 @@ String classmatesString = JSON.toJSONString(classmates);
 		showFriends();
 		//显示班级同学
 		showClassmates();
+		//设置界面初始化
+		setting.init();
 	</script>
 	
 </html>

@@ -65,8 +65,8 @@ public class UserDAO implements OnTransformListener<User> {
 	 * @throws Exception
 	 */
 	public void update(User user) throws Exception{
-		String sql = "update users "
-				+ "set username=?,password=?,nick_name=?,gender=?,age=?,birth=?,class=?,phonenumber=?,photo=?,star=?,email=?,grade=?"
+		String sql = "update mc_user "
+				+ "set user_name=?,user_pass_word=?,user_nick_name=?,user_gender=?,user_age=?,user_birth_day=?,user_class=?,user_phone_number=?,user_photo=?,user_star=?,user_email=?,user_grade=?"
 				+ " where id=?"; //注意where和之前的字符之间有空格，不要因为换行忘记了
 		Object[] args = {
 				user.getUserName(),user.getPassword(),user.getNickName()
@@ -87,6 +87,17 @@ public class UserDAO implements OnTransformListener<User> {
 		String sql = "select * from mc_user where user_name=? and user_pass_word=?";
 		Object[] args = {userName,password};
         return template.queryOne(sql, args);  
+	}
+	
+	/**
+	 * 通过用户ID获取
+	 * @param userId
+	 * @return
+	 */
+	public User getUserById(int userId){
+		String sql = "select * from mc_user where id=?";
+		Object[] args = {userId};
+        return template.queryOne(sql, args);
 	}
 	
 	/**
