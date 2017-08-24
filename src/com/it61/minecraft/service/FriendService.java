@@ -12,4 +12,18 @@ public interface FriendService {
 	 * @return
 	 */
 	List<Friend> getAllFriends(User user);
+	/**
+	 * 添加好友
+	 * @param owerId
+	 * @param friendId
+	 * @param friendName
+	 * @throws Exception
+	 */
+	void addFriend(int owerId, int friendId,String friendName)  throws Exception;
+	/**
+	 * 移除好友
+	 * @param friend
+	 * @throws Exception
+	 */
+	void removeFriend(Friend friend)  throws Exception;
 }

@@ -6,6 +6,15 @@ public class Friend {
 	private int friendId;
 	private String friendName;
 	
+	public Friend(){
+		
+	}
+	
+	public Friend(int owerId,int friendId){
+		this.owerId = owerId;
+		this.friendId = friendId;
+	}
+	
 	public int getId() {
 		return id;
 	}

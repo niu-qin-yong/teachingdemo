@@ -1,7 +1,7 @@
 /**
  * 显示班级同学
  * 
- * 同学对象的结构
+ * User对象的结构
  *     {
         "age": 0,
         "banji": 1,
@@ -55,7 +55,7 @@ function showClassmates(){
 		if(user.id != mate.id){
 			var addfriend=document.createElement("a");
 			addfriend.setAttribute("href","javascript:;");
-
+			
 			if(isFriend(mate.id)){
 				//如果是好友，取消好友
 				addfriend.setAttribute("title","取消好友");
@@ -101,6 +101,57 @@ function isFriend(friendId){
 		if(friendId == fri.friId){
 			return true;
 		}
-		return false;
 	}
+	return false;
+}
+
+/**
+*添加好友，friendId是好友id
+**/
+function addFriend(a){
+	var friId = a.getAttribute("data-friId");
+	var friName = a.getAttribute("data-friName");
+	
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function(){
+       if(xmlhttp.readyState==4 && xmlhttp.status == 200){
+    	   if(xmlhttp.responseText == "add_friend_ok"){
+     	    a.style.backgroundImage="url("+basePath+"imgs/friends-each-other.png)";
+			a.setAttribute("title","移除好友");
+			a.setAttribute("data-friId",a.getAttribute("data-friId"));
+			a.setAttribute("onclick",'removeFriend(this)');  
+		
+			//更新好友界面
+			//addEleFromFriends(a.getAttribute("data-friId"),a.getAttribute("data-friName"));
+    	   }
+       }
+    }
+    xmlhttp.open("post",basePath+"servlet/AddFriendServlet",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("friendId="+friId+"&friendName="+friName);
+}
+
+/**
+*移除好友关系
+**/
+function removeFriend(a){
+	var owerId = user.id;
+	var friId = a.getAttribute("data-friId");
+	
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function(){
+       if(xmlhttp.readyState==4 && xmlhttp.status == 200){
+    	   if(xmlhttp.responseText == "remove_friend_ok"){
+     	    a.style.backgroundImage="url("+basePath+"imgs/jiafriend.png)";
+	a.setAttribute("title","添加好友");
+	a.setAttribute("onclick",'addFriend(this)'); 
+	
+	//更新好友界面
+	removeEleFromFriends(a.getAttribute("data-friId"));
+    	   }
+       }
+    }
+    xmlhttp.open("post",basePath+"servlet/RemoveFriendServlet",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("owerId="+owerId+"&friId="+friId);			
 }

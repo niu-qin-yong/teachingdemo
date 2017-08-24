@@ -25,6 +25,16 @@
     <servlet-name>ValidateCodeServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.ValidateCodeServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AddFriendServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.AddFriendServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>RemoveFriendServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.RemoveFriendServlet</servlet-class>
+  </servlet>
+
+
 
 
   <servlet-mapping>
@@ -67,6 +77,14 @@
   <servlet-mapping>
     <servlet-name>ValidateCodeServlet</servlet-name>
     <url-pattern>/servlet/ValidateCodeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddFriendServlet</servlet-name>
+    <url-pattern>/servlet/AddFriendServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RemoveFriendServlet</servlet-name>
+    <url-pattern>/servlet/RemoveFriendServlet</url-pattern>
   </servlet-mapping>
   <!--统一处理编码的过滤器  -->
   <!-- 定义过滤器 -->

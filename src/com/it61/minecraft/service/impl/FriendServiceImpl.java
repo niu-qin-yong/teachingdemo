@@ -16,4 +16,17 @@ public class FriendServiceImpl implements FriendService{
 		return dao.queryAllFriends(user);
 	}
 
+	@Override
+	public void addFriend(int owerId, int friendId, String friendName)
+			throws Exception {
+		FriendDAO dao = new FriendDAO();
+		dao.addFriend(owerId, friendId, friendName);
+	}
+
+	@Override
+	public void removeFriend(Friend friend) throws Exception {
+		FriendDAO dao = new FriendDAO();
+		dao.removeFriend(friend);
+	}
+
 }

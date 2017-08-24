@@ -61,9 +61,11 @@ String classmatesString = JSON.toJSONString(classmates);
 			
 			/* 我的好友 */
 			var allFriendsObj = JSON.parse('<%=allFriendsString%>');
+			console.log(allFriendsObj)
 			
 			/* 班级同学 */
 			var classmatesObj = JSON.parse('<%=classmatesString%>');
+			console.log(classmatesObj)
 		</script>
 	
 		<!-- 用户登录部分 -->

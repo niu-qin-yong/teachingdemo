@@ -38,4 +38,28 @@ public class FriendDAO implements OnTransformListener<Friend>{
 		Object[] args = {user.getId()};
 		return temp.queryAll(sql, args);
 	}
+	
+	/**
+	 * 添加好友
+	 * @param owerId
+	 * @param friendId
+	 * @param friendName
+	 * @throws Exception
+	 */
+	public void addFriend(int owerId, int friendId,String friendName) throws Exception {
+		String sql = "insert into mc_friend(user_id,friend_user_id,friend_user_name) values(?,?,?)";
+		Object[] args = {owerId,friendId,friendName};
+		temp.update(sql, args);
+	}
+	
+	/**
+	 * 移除好友
+	 * @param friend
+	 * @throws Exception
+	 */
+	public void removeFriend(Friend friend) throws Exception {
+		String sql = "delete from mc_friend where user_id=? and friend_user_id=?;";
+		Object[] args = {friend.getOwerId(),friend.getFriId()};
+		temp.update(sql, args);
+	}
 }
