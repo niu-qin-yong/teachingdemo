@@ -11,8 +11,9 @@ function showSchoolmates(){
 		
 		var schoolephoto=document.createElement("div");
 		schoolephoto.setAttribute("class","schoolephoto");
-		//TODO 显示用户头像，先留下后面再来实现
-//		schoolephoto.style.backgroundImage="url("+basePath+"servlet/ShowPicServlet?id="+smate.id+")";	
+		//显示用户头像
+		var photoURL = basePath+"servlet/ShowPicServlet?id="+smate.id+"&type=user";
+		schoolephoto.style.backgroundImage="url("+photoURL+")";	
 		schoolfee.appendChild(schoolephoto);
 		
 		var schoolename=document.createElement("div");

@@ -41,8 +41,8 @@ function showClassmates(){
 		var classmatephoto=document.createElement("div");
 		classmatephoto.setAttribute("class","classmatephoto");
 		//先使用默认图像
-		var defaultPhoto = basePath+"imgs/f1.gif";
-		classmatephoto.style.backgroundImage="url("+defaultPhoto+")";	
+		var photoURL = basePath+"servlet/ShowPicServlet?id="+mate.id+"&type=user";
+		classmatephoto.style.backgroundImage="url("+photoURL+")";	
 		
 		var classmatename=document.createElement("div");
 		classmatename.setAttribute("class","classmatename");
@@ -167,9 +167,8 @@ function addEleFromFriends(friId,friName){
 	var gfriendphoto=document.createElement("div");
 	gfriendphoto.setAttribute("class","gfriendphoto");
 	//TODO 先使用默认头像
-	var defaultPhoto = basePath+"imgs/f1.gif";
-//	gfriendphoto.style.backgroundImage="url(<%=basePath%>/servlet/ShowPicServlet?id="+friId+")";	
-	gfriendphoto.style.backgroundImage="url("+defaultPhoto+")";	
+	var photoURL = basePath+"servlet/ShowPicServlet?id="+friId+"&type=user";
+	gfriendphoto.style.backgroundImage="url("+photoURL+")";	
 	friendee.appendChild(gfriendphoto);
 	
 	var gfriendname=document.createElement("div");

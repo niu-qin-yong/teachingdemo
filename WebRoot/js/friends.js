@@ -19,8 +19,8 @@ function showFriends(){
 		var gfriendphoto=document.createElement("div");
 		gfriendphoto.setAttribute("class","gfriendphoto");
 		//先显示默认头像，后面再显示真实头像
-		var defaultPhoto = basePath+"imgs/f1.gif";
-		gfriendphoto.style.backgroundImage="url("+defaultPhoto+")";	
+		var photoURL = basePath+"servlet/ShowPicServlet?id="+fri.friId+"&type=user";
+		gfriendphoto.style.backgroundImage="url("+photoURL+")";	
 		friendee.appendChild(gfriendphoto);
 		
 		var gfriendname=document.createElement("div");
