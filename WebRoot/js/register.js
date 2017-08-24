@@ -69,34 +69,26 @@ function validate(i) {
 	if (i == 4) {
 		var value = inputs[i].value;
 		
-		if(value != "ATS6"){
+/*		if(value != "ATS6"){
 			return false;
-		}
+		}*/
 		
-		//后面实现动态验证时，放开下面代码
-/*		if(value == "" | value == "null" | value == null ){
+		//使用ajax提交验证码给服务器验证是否正确
+		if(value == "" | value == "null" | value == null ){
 			warnings[i].innerHTML = "验证码输入错误";
 			showValidateCode();
 			return false;
 		}
-		
-		//检查验证码是否正确，将用户输入的验证码提交给服务器，服务器返回判断结果
-		$.ajax({
-			url:"/minecraft/servlet/CheckValidateCodeServlet",
-			async: false,
-			type:'post',
-			data:{'code':value},
-			success:function(data,status){
-	              if (data == 'false') {
-					warnings[i].innerHTML = "验证码输入错误";
-					showValidateCode();
-					return false;
-	              }
-	        },
-	        error:function(data,status){
-	        	alert("GetValidateCode "+status+"\n"+data);
-	        }
-		});*/
+		//使用ajax的get方法完成动态验证码的检验
+		var xmlhttp = new XMLHttpRequest();
+	    xmlhttp.open("get",basePath+"servlet/CheckValidateCodeServlet?code="+value,false);
+	    xmlhttp.send();
+	    var responseData = xmlhttp.responseText;
+	    if (responseData == 'false') {
+			warnings[i].innerHTML = "验证码输入错误";
+			showValidateCode();
+			return false;
+       }
 		
 	}
 	
