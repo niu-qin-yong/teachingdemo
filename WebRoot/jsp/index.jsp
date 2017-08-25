@@ -6,6 +6,7 @@
 <%@page import="com.alibaba.fastjson.*" %>
 <%@page import="com.alibaba.fastjson.serializer.*" %>
 <%@page import="com.it61.minecraft.common.*"%>
+<%@page import="java.sql.*" %>
 
 <%
 /* 应用路径 */
@@ -55,7 +56,13 @@ for(Friend fri : allFriends){
 }
 
 MomentService momentService = new MomentServiceImpl();
-List<Moment> moments = momentService.getMoments(senderIds);
+//获取所有动态
+//List<Moment> moments = momentService.getMoments(senderIds);
+
+//分页获取动态，获取首次显示的
+Timestamp time = new Timestamp(System.currentTimeMillis());
+List<Moment> moments = momentService.getMomentsPaging(senderIds,time.toString(),3);
+
 PropertyFilter filter = new PropertyFilter(){
 	
 	@Override

@@ -20,12 +20,9 @@ public class MomentDAO implements OnTransformListener<Moment>{
 	public static void main(String[] args) {
 		MomentDAO dao = new MomentDAO();
 		List<Integer> senderIds = new ArrayList<Integer>();
-		senderIds.add(1);
-		senderIds.add(2);
-		senderIds.add(3);
 		senderIds.add(4);
-		List<Moment> moments = dao.getMoments(senderIds );
-		System.out.println(moments.size());
+		List<Moment> momentsPaging = dao.getMomentsPaging(senderIds, "2017-08-25 12:30:59", 5);
+		System.out.println(momentsPaging.size());
 	}
 	
 	public MomentDAO(){
@@ -81,5 +78,27 @@ public class MomentDAO implements OnTransformListener<Moment>{
 		String sql = "select * from mc_moment where ID=?";
 		Object[] args = {momentId};
 		return temp.queryOne(sql, args);
+	}
+	
+	/**
+	 * 分页查询获取动态
+	 * @param senderIds
+	 * @param time	
+	 * @param limit	
+	 * @return 返回 senderIds 发表的动态中发表时间在 time 之前的 limit 条记录
+	 */
+	public List<Moment> getMomentsPaging(List<Integer> senderIds,String time,int limit){
+		String sql = "select * from mc_moment where moment_sender_id in (";
+		Object[] args = senderIds.toArray();
+		for(int i=0;i<senderIds.size();i++){
+			sql+="?,";
+		}
+		//去掉最后多余的逗号
+		sql = sql.substring(0, sql.length()-1);
+		sql += ")";
+		//按时间倒序排序
+		sql+="and moment_send_time < '"+time+"' order by moment_send_time desc limit "+limit;;
+		
+		return temp.queryAll(sql, args);
 	}
 }

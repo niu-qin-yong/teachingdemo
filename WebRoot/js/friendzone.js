@@ -135,6 +135,40 @@ function createMomentElement(moment,top){
 	
 	container.append(author,content);
 	
-	$("#friendzone").append(container);
+	//$("#friendzone").append(container);
 	
+	if(top){
+		/* 如果top是true，将动态显示在发送动态框的下面*/
+		$('#send').after(container);
+	}else{
+		/* 显示在加载更多框的上面 */
+		$("#loadmore").before(container);			
+	}
+}
+
+/**
+*加载下一组动态
+**/
+var hasMore = true;
+function loadMoreMoments(){
+	if(!hasMore){
+		alert("亲,没有了！");
+		return;
+	}
+	
+	var lastMomentStamp = $('#loadmore').prev().attr("data-daytime");
+	var url = basePath+"servlet/LoadMoreMomentServlet?stamp="+lastMomentStamp;
+	$.get(url,function(data,status){
+		var moreMoments = JSON.parse(data);
+		
+		if(moreMoments.length == 0){
+			hasMore = false;
+			alert("亲,没有了！");
+			return;
+		}
+		
+		for(var i=0;i < moreMoments.length;i++){
+		 	createMomentElement(moreMoments[i],false);
+		}
+	});
 }

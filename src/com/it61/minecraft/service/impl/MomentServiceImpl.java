@@ -19,5 +19,11 @@ public class MomentServiceImpl implements MomentService {
 		MomentDAO dao = new MomentDAO();
 		return dao.getMoments(senderIds);
 	}
+	
+	@Override
+	public List<Moment> getMomentsPaging(List<Integer> senderIds,String time,int limit){
+		MomentDAO dao = new MomentDAO();
+		return dao.getMomentsPaging(senderIds,time,limit);
+	}
 
 }
