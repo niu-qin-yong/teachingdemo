@@ -26,5 +26,11 @@ public interface MomentService {
 	 * @return
 	 */
 	List<Moment> getMomentsPaging(List<Integer> senderIds,String time,int limit);
+	/**
+	 * 获取最新的一条动态
+	 * @param senderId
+	 * @return
+	 */
+	Moment getMomentLatest(int senderId);
 
 }

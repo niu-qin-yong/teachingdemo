@@ -42,10 +42,8 @@ function sendMoment(){
           contentType : false,
           success:function(data,status){
         	  
-        	  alert(data);
-              
               /* 显示自己发的这条动态在最上面 */
-//              createMomentElement(JSON.parse(data),true);
+              createMomentElement(JSON.parse(data),true);
               
               /* 清除文本输入框等的内容 */
               $('#moment').val("");

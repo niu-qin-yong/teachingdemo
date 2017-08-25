@@ -101,4 +101,15 @@ public class MomentDAO implements OnTransformListener<Moment>{
 		
 		return temp.queryAll(sql, args);
 	}
+	
+	/**
+	 * 返回指定发送者的最新一条动态
+	 * @param senderId
+	 * @return
+	 */
+	public Moment findLatestBySenderId(Integer senderId) {
+		String sql = "select * from mc_moment where moment_sender_id=? order by moment_send_time desc limit 1";
+		Object[] args = {senderId};
+		return temp.queryOne(sql, args);
+	}
 }

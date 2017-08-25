@@ -69,9 +69,26 @@ public class MomentServlet extends HttpServlet {
 				
 				//调用MomentService发表
 				MomentService service = new MomentServiceImpl();
-				service.sendMoment(moment);;
+				service.sendMoment(moment);
 				
-				response.getWriter().write("恭喜，动态发表成功！");
+				//获取刚发表的动态返回给界面显示
+				Moment latestMoment = service.getMomentLatest(user.getId());
+				PropertyFilter filter = new PropertyFilter(){
+					
+					@Override
+					public boolean apply(Object obj, String name, Object value) {
+						//返回false表示过滤
+						if(name.equals("picture")){
+							return false;
+						}
+						return true;
+					}  
+					
+				};
+				String json = JSON.toJSONString(latestMoment,filter,SerializerFeature.WriteDateUseDateFormat); 
+
+				
+				response.getWriter().write(json);
 			} catch (Exception e) {
 				e.printStackTrace();
 				//TODO 发表失败
