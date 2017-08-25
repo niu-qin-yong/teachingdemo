@@ -49,6 +49,11 @@
     <servlet-name>ShowPicServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.ShowPicServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>MomentServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.MomentServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -117,6 +122,10 @@
   <servlet-mapping>
     <servlet-name>ShowPicServlet</servlet-name>
     <url-pattern>/servlet/ShowPicServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MomentServlet</servlet-name>
+    <url-pattern>/servlet/MomentServlet</url-pattern>
   </servlet-mapping>
   <!--统一处理编码的过滤器  -->
   <!-- 定义过滤器 -->

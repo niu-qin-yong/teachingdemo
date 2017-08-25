@@ -17,6 +17,20 @@ public class Moment {
 	private List<Favor> favors;
 	private List<Comment> comments;
 	
+	public Moment(){}
+	
+
+	public Moment(int id, int sId, String sName, String content,
+			InputStream pic, Timestamp stamp, int experience) {
+		this.id = id;
+		this.senderId = sId;
+		this.senderName = sName;
+		this.content = content;
+		this.picture = pic;
+		this.sendTime = stamp;
+		this.senderExperience = experience;
+	}
+
 	public int getId() {
 		return id;
 	}

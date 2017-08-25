@@ -144,67 +144,15 @@ String onlineFriendsString = JSON.toJSONString(onlineFriends);
 			<section id="contentView">
 				<div id="content">
 					<div id="friendzone" class="showcontent">
-						<div class="remarks">
-							<!-- 作者信息 -->
-							<div class="remarks-author">
-								<img src="imgs/head1.png"/>
-								<div class="author-name">
-									Chindy
-								</div>
-								<div class="author-class"></div>
-							</div>
-							<!-- 说说内容 -->
-							<div class="remarks-content">
-								<div class="content-text">
-									谁说我白，瘦，漂亮，我就跟他做好朋友。
-								</div>
-								<div class="content-time">
-									今天8：15
-								</div>
-								<img src="imgs/show1.jpg"/>
-								<div class="remarks-comments">
-									<div class="comment-like">
-										<span> </span>
-										<img src="imgs/zan1.png">
-										<img src="imgs/zan2.png">
-									</div>
-									<div class="comment-text">
-										<span> </span>
-										<textarea> </textarea>
-									</div>
-								</div>
-							</div>
+						<div id="send" style="margin-bottom: 10px">
+							<form onsubmit="return sendMoment()" id="momentform">
+							     <textarea name="moment-text" id="moment" cols="80" rows="3" placeholder="说点什么吧"></textarea>
+							     <input type="file" name="moment-pic" id="moment-pic" accept="image/png,image/jpeg"/><br/>
+                    			 <input type="submit" value="发表"/>
+                    		</form>
 						</div>
-						<div class="remarks">
-							<!-- 作者信息 -->
-							<div class="remarks-author">
-								<img src="imgs/head1.png"/>
-								<div class="author-name">
-									Chindy
-								</div>
-								<div class="author-class"></div>
-							</div>
-							<!-- 说说内容 -->
-							<div class="remarks-content">
-								<div class="content-text">
-									谁说我白，瘦，漂亮，我就跟他做好朋友。
-								</div>
-								<div class="content-time">
-									今天8：15
-								</div>
-								<img src="imgs/show1.jpg"/>
-								<div class="remarks-comments">
-									<div class="comment-like">
-										<span> </span>
-										<img src="imgs/zan1.png">
-										<img src="imgs/zan2.png">
-									</div>
-									<div class="comment-text">
-										<span> </span>
-										<textarea> </textarea>
-									</div>
-								</div>
-							</div>
+						<div id="loadmore">
+							<button onclick="loadMoreMoments()">点击加载更多</button>
 						</div>											
 					</div>
 					<div id="album" class="showcontent">
@@ -555,6 +503,7 @@ String onlineFriendsString = JSON.toJSONString(onlineFriends);
 	<script src="<%=basePath %>js/friends.js"></script>
 	<script src="<%=basePath %>js/classmates.js"></script>
 	<script src="<%=basePath %>js/setting.js"></script>
+	<script src="<%=basePath %>js/friendzone.js"></script>
 	
 	<script type="text/javascript">
 		//音乐播放
