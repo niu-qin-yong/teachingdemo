@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.it61.minecraft.bean.Moment;
 import com.it61.minecraft.bean.User;
+import com.it61.minecraft.dao.MomentDAO;
 import com.it61.minecraft.dao.UserDAO;
 
 /**
@@ -53,13 +54,13 @@ public class ShowPicServlet extends HttpServlet {
 			}
 		}else if(type.equals("moment")){
 			//返回朋友圈动态图片
-/*			MomentDAO dao = new MomentDAO();
+			MomentDAO dao = new MomentDAO();
 			Moment moment = dao.findById(Integer.valueOf(id));
 			
-			bis = new BufferedInputStream(moment.getPic());
+			bis = new BufferedInputStream(moment.getPicture());
 			
 			//设置响应大小
-			response.setContentLength(bis.available());*/
+			response.setContentLength(bis.available());
 		}
 		
 		//将图片二进制流输出到response的输出流

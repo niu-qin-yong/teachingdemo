@@ -1,3 +1,15 @@
+
+/*
+ *   {
+        "content": "还让不让人说话了",
+        "id": 5,
+        "sendTime": "2017-08-25 15:08:26",
+        "senderExperience": 100,
+        "senderId": 4,
+        "senderName": "Tom"
+    }
+ */
+
 /**
 *发表朋友圈动态
 **/		
@@ -46,4 +58,83 @@ function sendMoment(){
      
      
 	return false;
+}
+
+/*显示首页朋友圈 */
+function showMoments(){
+	for(var i=0;i<momentsObj.length;i++){
+		var moment = momentsObj[i];
+		createMomentElement(moment,false);
+	}
+}
+
+/**
+*创建动态的DOM，并将其添加到父元素中
+**/
+function createMomentElement(moment,top){
+	var container = $("<div></div>");
+	container.attr("class","remarks");
+	container.attr("data-daytime",moment.sendTime);
+	
+	/* 发布者信息 */
+	var author = $("<div></div>");
+	author.attr("class","remarks-author");
+	//发布者头像
+	var photo = $("<img/>");
+	photo[0].src = basePath+"servlet/ShowPicServlet?type=user&id="+moment.senderId;
+	//发布者名字
+	var authorName = $("<div></div>");
+	authorName.attr("class","author-name");
+	authorName.html(moment.senderName);
+	//等级
+	var levelImg = $("<img />");
+	var level = moment.senderExperience;
+	var levelUrl = basePath+"imgs/star-level-1.png";
+	if(Math.floor(level/30) == 2){
+		levelUrl = basePath+"imgs/star-level-2.png";
+	}else if(Math.floor(level/30) == 3){
+		levelUrl = basePath+"imgs/star-level-3.png";
+	}
+	levelImg.attr("src",levelUrl);
+	
+	var authorClass = $("<div></div>");
+	authorClass.attr("class","author-class");
+	authorClass.append(levelImg);
+	//把头像、名称、等级放到外层 div
+	author.append(photo,authorName,authorClass);
+	
+	/* 动态内容 */
+	var content = $("<div></div>");
+	content.attr("class","remarks-content");
+	//内容
+	var text = $("<div></div>");
+	text.attr("class","content-text");
+	text.html(moment.content);
+	//发布时间
+	var time = $("<div></div>");
+	time.attr("class","content-time");
+	time.html(moment.sendTime);
+	//动态的图片
+	var img = $("<img/>");
+	img[0].src=basePath+"servlet/ShowPicServlet?type=moment&id="+moment.id;
+	
+	/*点赞和留言*/
+	var remarksComments = $("<div></div>");
+	remarksComments.attr("class","remarks-comments");
+	
+	/* 点赞 */
+	var favor = $("<div></div>");
+	
+	/* 留言  */
+	var comments = $("<div></div>");
+	
+	remarksComments.append(favor);
+	remarksComments.append(comments);
+	
+	content.append(text,time,img,remarksComments);
+	
+	container.append(author,content);
+	
+	$("#friendzone").append(container);
+	
 }

@@ -45,6 +45,30 @@ for(Friend fri : allFriends){
 	}
 }
 String onlineFriendsString = JSON.toJSONString(onlineFriends); 
+
+/* 获取所有动态 */
+//获取自己及好友的id
+List<Integer> senderIds = new ArrayList<Integer>();
+senderIds.add(user.getId());
+for(Friend fri : allFriends){
+	senderIds.add(fri.getFriId());
+}
+
+MomentService momentService = new MomentServiceImpl();
+List<Moment> moments = momentService.getMoments(senderIds);
+PropertyFilter filter = new PropertyFilter(){
+	
+	@Override
+	public boolean apply(Object obj, String name, Object value) {
+		//返回false表示过滤
+		if(name.equals("picture")){
+			return false;
+		}
+		return true;
+	}  
+	
+};
+String momentsString = JSON.toJSONString(moments,filter,SerializerFeature.WriteDateUseDateFormat); 
 %>
 
 <!DOCTYPE html>
@@ -82,6 +106,9 @@ String onlineFriendsString = JSON.toJSONString(onlineFriends);
 			
 			/* 在线好友 */
 			var onlineFriendsObj = JSON.parse('<%=onlineFriendsString%>');
+			
+			/* 所有动态 */
+			var momentsObj = JSON.parse('<%=momentsString%>');
 		</script>
 	
 		<!-- 用户登录部分 -->
@@ -518,6 +545,8 @@ String onlineFriendsString = JSON.toJSONString(onlineFriends);
 		setting.init();
 		//显示在线好友
 		showOnlineFriends();
+		//显示朋友圈动态
+		showMoments();
 	</script>
 	
 </html>

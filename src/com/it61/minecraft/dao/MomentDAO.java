@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.it61.minecraft.bean.Moment;
 import com.it61.minecraft.common.DAOTemplate;
@@ -13,6 +15,18 @@ import com.it61.minecraft.common.OnTransformListener;
 
 public class MomentDAO implements OnTransformListener<Moment>{
 	private DAOTemplate<Moment> temp;
+	
+	//测试方法
+	public static void main(String[] args) {
+		MomentDAO dao = new MomentDAO();
+		List<Integer> senderIds = new ArrayList<Integer>();
+		senderIds.add(1);
+		senderIds.add(2);
+		senderIds.add(3);
+		senderIds.add(4);
+		List<Moment> moments = dao.getMoments(senderIds );
+		System.out.println(moments.size());
+	}
 	
 	public MomentDAO(){
 		temp = new DAOTemplate<Moment>();
@@ -43,4 +57,29 @@ public class MomentDAO implements OnTransformListener<Moment>{
 		return null;
 	}
 
+	public List<Moment> getMoments(List<Integer> senderIds) {
+		String sql = "select * from mc_moment where moment_sender_id in (";
+		Object[] args = senderIds.toArray();
+		for(int i=0;i<senderIds.size();i++){
+			sql+="?,";
+		}
+		//去掉最后多余的逗号
+		sql = sql.substring(0, sql.length()-1);
+		sql += ")";
+		//按时间倒序排序
+		sql+=" order by moment_send_time desc";
+		
+		return temp.queryAll(sql, args);
+	}
+	
+	/**
+	 * 根据动态id返回动态
+	 * @param momentId
+	 * @return
+	 */
+	public Moment findById(Integer momentId) {
+		String sql = "select * from mc_moment where ID=?";
+		Object[] args = {momentId};
+		return temp.queryOne(sql, args);
+	}
 }
