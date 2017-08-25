@@ -31,6 +31,20 @@ String allFriendsString = JSON.toJSONString(allFriends);
 /* 获取班级同学 */
 List<User> classmates = userService.getClassmates(user);
 String classmatesString = JSON.toJSONString(classmates);
+
+/* 获取在线好友 */
+//所有在线用户
+ArrayList<User> onlineUsers = (ArrayList<User>)getServletContext().getAttribute("online_users");
+//在线好友
+List<Friend> onlineFriends = new ArrayList<Friend>();
+for(Friend fri : allFriends){
+	for(User u : onlineUsers){
+		if(fri.getFriId() == u.getId()){
+			onlineFriends.add(fri);
+		}
+	}
+}
+String onlineFriendsString = JSON.toJSONString(onlineFriends); 
 %>
 
 <!DOCTYPE html>
@@ -62,11 +76,12 @@ String classmatesString = JSON.toJSONString(classmates);
 			
 			/* 我的好友 */
 			var allFriendsObj = JSON.parse('<%=allFriendsString%>');
-			console.log(allFriendsObj)
 			
 			/* 班级同学 */
 			var classmatesObj = JSON.parse('<%=classmatesString%>');
-			console.log(classmatesObj)
+			
+			/* 在线好友 */
+			var onlineFriendsObj = JSON.parse('<%=onlineFriendsString%>');
 		</script>
 	
 		<!-- 用户登录部分 -->
@@ -552,6 +567,8 @@ String classmatesString = JSON.toJSONString(classmates);
 		showClassmates();
 		//设置界面初始化
 		setting.init();
+		//显示在线好友
+		showOnlineFriends();
 	</script>
 	
 </html>

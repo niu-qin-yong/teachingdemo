@@ -38,3 +38,39 @@ function showFriends(){
 		parent.appendChild(friendee);
 	}
 }
+
+/**
+*在线好友泡泡的随机left值
+**/
+function getRandomLeft(index){
+	var rand = Math.random();
+	var left;
+	if(index%2 != 0){
+		//1,3,5
+		left = (Math.pow(rand,3)*20)+"px";
+	}else{
+		//2,4,6
+		left = (Math.pow(rand,3)*80)+"px";
+	}
+	return left;
+}
+
+/* 显示在线好友 */
+function showOnlineFriends(){
+	for(var i=0;i<onlineFriendsObj.length;i++){
+		var friend = onlineFriendsObj[i];
+		
+		var friendOn=document.createElement("div");
+		friendOn.setAttribute("class","friendOn");
+		friendOn.setAttribute("title",friend.friName);
+		var photoURL = basePath+"servlet/ShowPicServlet?type=user&id="+friend.friId;
+		friendOn.style.backgroundImage="url("+photoURL+"),url(/minecraft/imgs/pop.jpg)";	
+		friendOn.style.left=getRandomLeft(i);
+		friendOn.style.top=(i*80)+"px";
+		friendOn.setAttribute("data-toUserId",friend.friId);
+		friendOn.setAttribute("data-toUserName",friend.friName);
+		
+		var parent = document.getElementById("friendsOnline");
+		parent.appendChild(friendOn);
+	}
+}
