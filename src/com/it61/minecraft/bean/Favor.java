@@ -10,6 +10,18 @@ public class Favor {
 	private int favorId;
 	private String favorName;
 	
+	public Favor(){}
+	
+	public Favor(int momentId, int favorId, String favorName) {
+		this.momentId = momentId;
+		this.favorId = favorId;
+		this.favorName = favorName;
+	}
+	public Favor(int momentId, int favorId) {
+		this.momentId = momentId;
+		this.favorId = favorId;
+	}
+
 	public int getId() {
 		return id;
 	}

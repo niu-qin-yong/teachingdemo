@@ -63,6 +63,12 @@ MomentService momentService = new MomentServiceImpl();
 Timestamp time = new Timestamp(System.currentTimeMillis());
 List<Moment> moments = momentService.getMomentsPaging(senderIds,time.toString(),3);
 
+//获取动态的点赞
+FavorService favorService = new FavorServiceImpl();
+for(Moment m : moments){
+	m.setFavors(favorService.getAllFavorsByMomentId(m.getId()));
+}
+
 PropertyFilter filter = new PropertyFilter(){
 	
 	@Override

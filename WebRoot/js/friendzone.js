@@ -52,7 +52,7 @@ function sendMoment(){
           error:function(data,status){
               alert("sendMoment()\n"+data+"========"+status);
           }
-     })
+     });
      
      
 	return false;
@@ -122,6 +122,23 @@ function createMomentElement(moment,top){
 	
 	/* 点赞 */
 	var favor = $("<div></div>");
+	favor.attr("class","comment-like");
+	favor.attr("id","comment-like"+moment.id);
+	var span = $("<span></span>");
+	if(checkWhetherFavor(moment.favors)){
+		/* 已点赞，显示取消 */
+		span.attr("data-commentId",moment.id);
+		span.attr("onclick","onCancelFavor(this)");
+		span[0].style.backgroundImage="url("+basePath+"imgs/like-cancel.jpg)";
+		span.attr("title","取消点赞");
+	}else{
+		/* 未点赞，显示可点赞 */
+		span.attr("data-commentId",moment.id);
+		span.attr("onclick","onFavor(this)");
+		span.attr("title","点赞");
+	}
+	
+	favor.append(span);
 	
 	/* 留言  */
 	var comments = $("<div></div>");
@@ -142,6 +159,105 @@ function createMomentElement(moment,top){
 		/* 显示在加载更多框的上面 */
 		$("#loadmore").before(container);			
 	}
+	
+	/* 显示所有点赞头像 */
+	var favors = moment.favors;
+	if(favors != undefined){
+		for(var i=0;i < favors.length;i++){
+			var favorObj = favors[i];
+			createFavorPhotoEle(favorObj.momentId,favorObj.favorId,favorObj.favorName);
+		}
+	}
+}
+
+/**
+*取消点赞
+**/
+function onCancelFavor(ele){
+	var momentId = ele.getAttribute("data-commentId");
+	var favorId = user.id;
+	
+	$.post(basePath+"servlet/FavorCancelServlet"
+			,{"momentId":momentId,"favorId":favorId}
+			,function(data,status){
+				if(data == "favor-cancel-success"){
+					/* 在界面上移除点赞者头像 */
+					$("#favor"+momentId+favorId).remove();
+					/* 改变点赞元素背景和点击事件，再次点击可以点赞 */
+					ele.setAttribute("title","点赞");
+					ele.style.backgroundImage="url("+basePath+"imgs/like.jpg)";
+					ele.setAttribute("onclick","onFavor(this)");							
+				}else{
+					alert("favor-cancel-fail");
+				}
+			});
+	
+}
+
+/**
+*点赞
+**/
+function onFavor(ele){
+	//动画
+	$(ele).animate({
+		 height:'50px',
+		 width:'50px'
+	},200)
+	.animate({
+		 height:'25px',
+		 width:'25px'
+	},200,function(){
+		//动画完成后执行的回调
+		var momentId = ele.getAttribute("data-commentId");
+		var favorId = user.id;
+		var favorName = user.userName;
+		
+		$.post(basePath+"servlet/FavorAddServlet"
+				,{"momentId":momentId,"favorId":favorId,"favorName":favorName}
+				,function(data,status){
+					if(data == "favor-add-success"){
+						/* 在界面上显示点赞者头像 */
+						createFavorPhotoEle(momentId,favorId,favorName);
+						/* 改变点赞元素背景和点击事件，再次点击取消点赞 */
+						ele.setAttribute("title","取消点赞");
+						ele.style.backgroundImage="url("+basePath+"imgs/like-cancel.jpg)";
+						ele.setAttribute("onclick","onCancelFavor(this)");
+					}else{
+						alert("favor-add-fail");
+					}
+		});	
+	});
+	
+
+}
+
+/**
+*创建点赞者头像DOM，并添加到父元素
+**/
+function createFavorPhotoEle(momentId,favorId,favorName){
+	var favorPhoto = $("<img/>");
+	favorPhoto.attr("id","favor"+momentId+favorId);
+	favorPhoto.attr("title",favorName);
+	favorPhoto[0].src=basePath+"servlet/ShowPicServlet?type=user&id="+favorId; 
+	$("#comment-like"+momentId).append(favorPhoto);
+}
+
+/**
+*判断当前用户是否点赞
+**/
+function checkWhetherFavor(favors){
+	/* 如果favors为undefined,返回false */
+	if(favors === undefined){
+		return false;
+	}
+	
+	var myid = user.id;
+	for(var i=0;i < favors.length;i++){
+		if(myid == favors[i].favorId){
+			return true;
+		}
+	}
+	return false;			
 }
 
 /**
