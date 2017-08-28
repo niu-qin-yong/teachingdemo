@@ -69,6 +69,12 @@ for(Moment m : moments){
 	m.setFavors(favorService.getAllFavorsByMomentId(m.getId()));
 }
 
+//获取动态的留言
+CommentService commentService = new CommentServiceImpl();
+for(Moment m : moments){
+	m.setComments(commentService.getAllCommentsByMomentId(m.getId()));
+}
+
 PropertyFilter filter = new PropertyFilter(){
 	
 	@Override

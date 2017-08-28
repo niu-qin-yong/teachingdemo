@@ -142,6 +142,17 @@ function createMomentElement(moment,top){
 	
 	/* 留言  */
 	var comments = $("<div></div>");
+	comments.attr("class","comment-text");
+	comments.attr("id","comment-text"+moment.id);
+	var span = $("<span></span>");
+	comments.append(span);
+	var tarea = $("<textarea> </textarea>");
+	tarea.attr("data-momentId",moment.id);
+	comments.append(tarea);
+	var btn = $("<button></button>");
+	btn.html("发表");
+	btn.attr("onclick","onComment(this)");
+	comments.append(btn);
 	
 	remarksComments.append(favor);
 	remarksComments.append(comments);
@@ -168,6 +179,69 @@ function createMomentElement(moment,top){
 			createFavorPhotoEle(favorObj.momentId,favorObj.favorId,favorObj.favorName);
 		}
 	}
+	
+	/* 显示所有留言 */
+	var mms = moment.comments;
+	if(mms != undefined){
+		for(var j=0;j < mms.length;j++){
+			var commentObj = mms[j];
+			createCommentEle(commentObj);
+		}
+	}
+}
+
+/**
+*留言
+**/
+function onComment(btn){
+	var textarea = $(btn).prev();
+	var content = textarea.val();
+	var momentId = textarea.attr("data-momentId");
+	var commenterId = user.id;
+	var commenterName = user.userName;
+	
+	$.post(basePath+"servlet/CommentServlet"
+			,{"content":content,"momentId":momentId,"commenterId":commenterId,"commenterName":commenterName}
+			,function(data,status){
+				
+				if(status == "success"){
+					//服务器返回最新一条留言的json字符串
+					var commentObj = JSON.parse(data);
+					/*修改界面*/
+					createCommentEle(commentObj);
+					/* 还原输入框,将内容置为空 */
+					textarea.val("");
+				}else{
+					
+				}
+			});
+}
+
+/**
+*创建留言对应的DOM并添加到父元素中
+**/
+function createCommentEle(commentObj){
+	var comment = $("<div></div>");
+	comment.attr("class","comment-style");
+	
+	var commenterPhoto = $("<img/>");
+	commenterPhoto[0].src=basePath+"servlet/ShowPicServlet?type=user&id="+commentObj.commenterId;
+	
+	var commenterName = $("<p></p>");
+	commenterName.attr("class","commenter-name");
+	
+	commenterName.html("<b>"+commentObj.commenterName+"</b>"+":");
+	
+	var commentContent = $("<p></p>");
+	commentContent.attr("class","comment-content");
+	commentContent.html(commentObj.content);
+	
+	var commentTime = $("<p></p>");
+	commentTime.attr("class","comment-time");
+	commentTime.html(commentObj.commentTime);
+	
+	comment.append(commenterPhoto,commenterName,commentContent,commentTime);
+	$("#comment-text"+commentObj.momentId).append(comment);			
 }
 
 /**

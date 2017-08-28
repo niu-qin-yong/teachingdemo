@@ -10,6 +10,25 @@ public class Comment {
 	private Timestamp commentTime;
 	private String content;
 	
+	public Comment(){}
+	
+	public Comment(int id, int cid, int mid, String cn, String content,
+			Timestamp timestamp) {
+		this.id = id;
+		this.commenterId = cid;
+		this.momentId = mid;
+		this.commenterName = cn;
+		this.content = content;
+		this.commentTime = timestamp;
+	}
+	public Comment(int commenterId, int momentId, String commenterName,
+			String content) {
+		this.commenterId = commenterId;
+		this.momentId = momentId;
+		this.commenterName = commenterName;
+		this.content = content;
+	}
+
 	public String getContent() {
 		return content;
 	}
