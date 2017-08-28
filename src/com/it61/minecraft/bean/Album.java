@@ -12,6 +12,23 @@ public class Album {
 	private Timestamp createTime;
 	private List<Picture> pics;
 	
+	public Album(){}
+	
+	public Album(int id, int userId, String name, String des,
+			Timestamp createTime) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.name = name;
+		this.des = des;
+		this.createTime = createTime;
+	}
+	public Album(int userId, String albumName, String albumDes) {
+		this.userId = userId;
+		this.name = albumName;
+		this.des = albumDes;
+	}
+
 	public Timestamp getCreateTime() {
 		return createTime;
 	}

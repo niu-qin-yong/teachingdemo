@@ -88,6 +88,13 @@ PropertyFilter filter = new PropertyFilter(){
 	
 };
 String momentsString = JSON.toJSONString(moments,filter,SerializerFeature.WriteDateUseDateFormat); 
+
+//获取所有相册
+AlbumService service = new AlbumServiceImpl();
+List<Album> allAlbums = service.getAllAlbums(user.getId());
+
+JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"; 
+String allAlbumsJsonString = JSON.toJSONString(allAlbums,SerializerFeature.WriteDateUseDateFormat);
 %>
 
 <!DOCTYPE html>
@@ -128,6 +135,10 @@ String momentsString = JSON.toJSONString(moments,filter,SerializerFeature.WriteD
 			
 			/* 所有动态 */
 			var momentsObj = JSON.parse('<%=momentsString%>');
+			
+			/* 所有相册 */
+			var albumArrayObj = JSON.parse('<%=allAlbumsJsonString%>');
+			
 		</script>
 	
 		<!-- 用户登录部分 -->
@@ -202,9 +213,13 @@ String momentsString = JSON.toJSONString(moments,filter,SerializerFeature.WriteD
 						</div>											
 					</div>
 					<div id="album" class="showcontent">
+						<div class="album-header">
+							<button onclick="album.showAlbumCreate()">创建相册</button>
+						</div>		
+									
 						<div id="slider">
-
 						</div>
+						
 						<!-- 相册内容区 -->
 						<div class="album-content" id="album-content">
 						</div>
@@ -532,6 +547,27 @@ String momentsString = JSON.toJSONString(moments,filter,SerializerFeature.WriteD
 		
 		<!-- 音乐点赞数 -->
 		<span id="like-count"></span>
+		
+		<!-- 相册创建对话框 -->
+		<div id="album-create">
+			<div id="ac-header">
+				<div id="ac-header-title">
+					创建相册
+				</div>
+			</div>
+			<div id="ac-body">
+				<input id="album-create-name" placeholder="相册名称"/>
+				<input id="album-create-des" placeholder="相册描述" />
+			</div>
+			<div id="ac-footer">
+				<button id="al-create" onclick="album.hideAlbumCreate()">
+					关闭
+				</button>
+				<button id="al-close" onclick="album.createAlbum()">
+					创建
+				</button>
+			</div>
+		</div>		
 			
 	</body>
 	
@@ -550,6 +586,7 @@ String momentsString = JSON.toJSONString(moments,filter,SerializerFeature.WriteD
 	<script src="<%=basePath %>js/classmates.js"></script>
 	<script src="<%=basePath %>js/setting.js"></script>
 	<script src="<%=basePath %>js/friendzone.js"></script>
+	<script src="<%=basePath %>js/album.js"></script>
 	
 	<script type="text/javascript">
 		//音乐播放
@@ -566,6 +603,8 @@ String momentsString = JSON.toJSONString(moments,filter,SerializerFeature.WriteD
 		showOnlineFriends();
 		//显示朋友圈动态
 		showMoments();
+		//相册
+		album.initAlbum(); 
 	</script>
 	
 </html>

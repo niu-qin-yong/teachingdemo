@@ -1,17 +1,12 @@
 #album {
-	width: 540px;
-	height: 400px;
-	margin-left: 65px;
-	border-radius: 40px;
-	background: rgba(255,255,255,0.7);
 	position: relative;
+	overflow: auto;
 }
 .album-header{
 	margin: 10px;
 }
 .album-content{
-	width: 510px;
-	height: 300px;
+	width: 100%;
 	overflow: auto;
 }
 .album-list{
@@ -76,18 +71,154 @@
   float: left;
   width: 33.3%;
   height: 33.3%;
-  margin: 0 -1px -1px 0;
-  border: 1px solid transparent;
-  overflow: hidden;
+  border: 2px solid transparent;
+  box-sizing: border-box;
 }
 
 .album-pictures > li > img {
   width: 100%;
+  height:100%;
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
 }
 
-/* 轮播图 */
+/*相册创建弹出框*/
+#album-create {
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0 0 5px black;
+	width:500px;
+	position: fixed;
+	margin:auto;
+	left:0;
+	right:0;
+	top:-300px;
+}
+#ac-header {
+	width: 500px;
+}
+#ac-header-title {
+	font-size: x-large;
+	margin: 20px;
+}
+#ac-body {
+	width: 500px;
+	height: 130px;
+}
+
+#ac-body input {
+	display: block;
+	width: 90%;
+	height: 40px;
+	margin: auto;
+	margin-top: 10px;
+	border-radius: 5px;
+	border: 1px solid #cccccc;
+	outline-width: 0;
+	padding-left: 5px;
+	transition: box-shadow 0.2s ;
+}
+
+#ac-body input:focus {
+	box-shadow: 0 0 8px rgba(82, 168, 236, 1);
+}
+
+#ac-footer {
+	width: 500px;
+	height: 70px;
+}
+#ac-footer button {
+	padding: 5px;
+	width:100px;
+	height:40px;
+	float:right;
+	margin-right: 20px;
+	border:0;
+	border-radius: 5px;
+}
+
+
+#ac-footer button:hover{
+	background-color: rgba(0,0,255,0.2);
+}
+
+#ac-footer button:focus{
+	outline:none;
+}
+
+#ac-footer button:active{
+	box-shadow: 0 0  5px blue;
+}
+
+/*相册浏览弹出框*/
+#album-browser {
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0 0 5px black;
+	width:500px;
+	position: fixed;
+	margin:auto;
+	left:0;
+	right:0;
+	top:-1000px;
+}
+#ab-header {
+	width: 500px;
+}
+#ab-header-title {
+	font-size: x-large;
+	margin: 20px;
+}
+#ab-body {
+	width: 500px;
+	max-height: 300px;	
+	overflow-x:hidden;
+	overflow-y: auto;
+	padding: 5px;
+	background-color: #DCDCDC;
+}
+
+#ab-footer {
+	width: 500px;
+	height: 70px;
+}
+#ab-footer button {
+	padding: 5px;
+	width:100px;
+	height:40px;
+	float:right;
+	margin-right: 20px;
+	border:0;
+	border-radius: 5px;
+}
+
+
+#ab-footer button:hover{
+	background-color: rgba(0,0,255,0.2);
+}
+
+#ab-footer button:focus{
+	outline:none;
+}
+
+#ab-footer button:active{
+	box-shadow: 0 0  5px blue;
+}
+
+.ab-content{
+	width: 100%;
+	height: 200px;
+	border:10px solid red;
+	text-align: right;
+	box-sizing: border-box;
+}
+.scroll_wrap{
+	width: 492px;
+	height:350px;
+	overflow: hidden;
+}
+
+/* 相册轮播图 */
 #slider {
 	overflow: hidden;
 }
