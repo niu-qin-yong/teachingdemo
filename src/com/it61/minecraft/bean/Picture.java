@@ -9,6 +9,16 @@ public class Picture {
 	private String picName;
 	private Timestamp createTime;
 	
+	public Picture(){}
+	
+	public Picture(int id, int userId, int albumId, String picName) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.albumId = albumId;
+		this.picName = picName;
+	}
+	
 	public int getId() {
 		return id;
 	}

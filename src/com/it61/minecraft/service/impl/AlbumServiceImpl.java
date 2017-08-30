@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.it61.minecraft.bean.Album;
+import com.it61.minecraft.bean.Picture;
 import com.it61.minecraft.dao.AlbumDAO;
 import com.it61.minecraft.service.AlbumService;
 
@@ -29,5 +30,10 @@ public class AlbumServiceImpl implements AlbumService {
 		AlbumDAO dao = new AlbumDAO();
 		return dao.getAllAlbums(userId);
 	}
-
+	
+	@Override
+	public void addPictures(List<Picture> pics) throws Exception{
+		AlbumDAO dao = new AlbumDAO();
+		dao.addPictures(pics);
+	}
 }

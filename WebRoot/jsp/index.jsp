@@ -93,6 +93,14 @@ String momentsString = JSON.toJSONString(moments,filter,SerializerFeature.WriteD
 AlbumService service = new AlbumServiceImpl();
 List<Album> allAlbums = service.getAllAlbums(user.getId());
 
+//获取相册包含的图片
+PictureService picService = new PictureServiceImpl();
+for(int i=0;i<allAlbums.size();i++){
+	Album album = allAlbums.get(i);
+	List<Picture> pics = picService.getPictures(album);
+	album.setPics(pics);
+}
+
 JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"; 
 String allAlbumsJsonString = JSON.toJSONString(allAlbums,SerializerFeature.WriteDateUseDateFormat);
 %>
@@ -109,6 +117,7 @@ String allAlbumsJsonString = JSON.toJSONString(allAlbums,SerializerFeature.Write
 		<link rel="stylesheet" href="<%=basePath %>css/friend.css">
 		<link rel="stylesheet" href="<%=basePath %>css/music.css">
 		<link rel="stylesheet" href="<%=basePath %>css/album.css">
+		<link rel="stylesheet" href="<%=basePath %>plugin/viewer/viewer.css">
 	
  	</head>
 	<body>
@@ -568,12 +577,32 @@ String allAlbumsJsonString = JSON.toJSONString(allAlbums,SerializerFeature.Write
 				</button>
 			</div>
 		</div>		
-			
+		<!-- 相册浏览对话框 -->
+		<div id="album-browser">
+			<div id="ab-header">
+				<div id="ab-header-title">
+					浏览相册
+				</div>
+			</div>
+			<div class="scroll_wrap">
+				<div id="ab-body">
+					<ul class="album-pictures" id="pictures-container">
+	              	</ul>
+				</div>
+			</div>
+			<div id="ab-footer">
+				<button id="ab-close" onclick="album.hideAlbumBrowser()">
+					关闭
+				</button>
+			</div>
+		</div>			
 	</body>
 	
 	<!-- 引入kalendae日历插件 -->
 	<script type="text/javascript" src="<%=basePath %>plugin/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=basePath %>plugin/kalendae/js/kalendae.js"></script>
+	<!-- Viewer -->
+	<script type="text/javascript" src="<%=basePath %>plugin/viewer/viewer.js"></script>
 	<!-- JS引入 -->
 	<script src="<%=basePath %>js/elements.js"></script>
 	<script src="<%=basePath %>js/common.js"></script>

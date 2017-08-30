@@ -73,6 +73,11 @@
     <servlet-name>CreateAlbumServlet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.CreateAlbumServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AlbumUploadServet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.AlbumUploadServet</servlet-class>
+  </servlet>
+
 
 
 
@@ -171,6 +176,10 @@
   <servlet-mapping>
     <servlet-name>CreateAlbumServlet</servlet-name>
     <url-pattern>/servlet/CreateAlbumServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AlbumUploadServet</servlet-name>
+    <url-pattern>/servlet/AlbumUploadServet</url-pattern>
   </servlet-mapping>
   <!--统一处理编码的过滤器  -->
   <!-- 定义过滤器 -->

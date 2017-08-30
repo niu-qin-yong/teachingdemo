@@ -14,6 +14,13 @@ public class Album {
 	
 	public Album(){}
 	
+	public Album(int id, int userId, String name) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.name = name;
+	}
+	
 	public Album(int id, int userId, String name, String des,
 			Timestamp createTime) {
 		super();
