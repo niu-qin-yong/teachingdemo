@@ -633,6 +633,7 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 	<script src="<%=basePath %>js/setting.js"></script>
 	<script src="<%=basePath %>js/friendzone.js"></script>
 	<script src="<%=basePath %>js/album.js"></script>
+	<script src="<%=basePath %>js/chat.js"></script>
 	
 	<script type="text/javascript">
 		//音乐播放
@@ -653,6 +654,8 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 		album.initAlbum(); 
 		//图片轮播配置
 		sliderConfig();
+		//聊天
+		Chat.initialize();
 	</script>
 	
 </html>
