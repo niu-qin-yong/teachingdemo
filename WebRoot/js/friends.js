@@ -11,7 +11,7 @@
 function showFriends(){
 	for(var i=0;i<allFriendsObj.length;i++){
 		var fri = allFriendsObj[i];
-	
+		
 		var friendee=document.createElement("div");
 		friendee.setAttribute("class","friendee");
 		friendee.setAttribute("id","fri"+fri.friId);
@@ -31,7 +31,8 @@ function showFriends(){
 		var gfriendchat=document.createElement("div");
 		gfriendchat.setAttribute("class","gfriendchat");
 		gfriendchat.innerHTML = "聊天";
-		gfriendchat.setAttribute("onclick","javascript:chat('<%=fri.getFriId()%>','<%=fri.getFriName()%>')");
+		console.log(chat);
+		gfriendchat.setAttribute("onclick","chat("+fri.friId+",'"+fri.friName+"')");
 		friendee.appendChild(gfriendchat);
 		
 		var parent = document.getElementById("friendcontent");

@@ -123,6 +123,7 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 		<link rel="stylesheet" href="<%=basePath %>css/friend.css">
 		<link rel="stylesheet" href="<%=basePath %>css/music.css">
 		<link rel="stylesheet" href="<%=basePath %>css/album.css">
+		<link rel="stylesheet" href="<%=basePath %>css/chat.css">
 		<link rel="stylesheet" href="<%=basePath %>plugin/viewer/viewer.css">
 	
  	</head>
@@ -611,6 +612,22 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 				<button id="ab-close" onclick="album.hideAlbumBrowser()">
 					关闭
 				</button>
+			</div>
+		</div>		
+		<!-- 聊天对话框 -->
+		<div id="chatbox">
+			<div id="chatmain">
+				<div id="bar">
+					与xxx聊天中
+				</div>
+				<div id="chatborard">
+				</div>
+				<div>
+					<input type="text" id="inputcontent" placeholder="点击按钮或者按回车键发送  /  按ESC键关闭聊天"/>
+					<button id="chatsend" onclick="onSend()">
+						发送
+					</button>
+				</div>
 			</div>
 		</div>			
 	</body>

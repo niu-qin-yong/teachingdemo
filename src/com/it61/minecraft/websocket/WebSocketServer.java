@@ -12,6 +12,9 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import com.alibaba.fastjson.JSON;
+import com.it61.minecraft.bean.WSMessage;
+
 @ServerEndpoint(value = "/websocket/{userId}")
 public class WebSocketServer {
 	
@@ -30,13 +33,6 @@ public class WebSocketServer {
 		this.userId = userId;
 		this.session = session;
 		connections.put(userId, session);
-		
-		try {
-			String msg = "你好  "+this.userId;
-			session.getBasicRemote().sendText(msg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	/**
@@ -54,7 +50,8 @@ public class WebSocketServer {
 	 */
 	@OnMessage
     public void incoming(String message) {
-		
+		WSMessage msg = (WSMessage) JSON.parseObject(message,WSMessage.class);
+        broadcast(msg);
     }
 	
 	/**
@@ -68,6 +65,59 @@ public class WebSocketServer {
         System.out.println("Chat Error: " + t.toString());
     }
     
+    /**
+     * 向客户端发送消息
+     * @param msg  要发送的消息，格式是JSON串
+     * @param targetUserId 给哪些用户发送消息
+     */
+    private void broadcast(WSMessage msg) {
+    	System.out.println("WebSocketServer 接收到的信息："+msg.toString());
+    	switch (msg.getMsgCode()) {
+		case 0:
+			chatP2P(msg);
+			break;
+		case 1:
+			chatGroup(msg);
+			break;
+		}
+    }
 
+    private void chatGroup(WSMessage msg) {
+    	//遍历当前在线用户，群发消息
+    		try {
+    			String msgJson = JSON.toJSONString(msg);
+    			Set<Integer> keySet = connections.keySet();
+    			for(Integer key : keySet){
+    				if(key == this.userId){
+    					//如果是自己，则不发送，因为在客户端已经显示过了
+    					continue;
+    				}
+    				Session ss = connections.get(key);
+    				ss.getBasicRemote().sendText(msgJson);
+    			}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+
+	/**
+     * 1v1聊天
+     */
+	private void chatP2P(WSMessage msg) {
+		
+		Session targetSession = connections.get(msg.getToUserId());
+		
+		try {
+			if(targetSession != null){
+				//给好友发
+				String msgJson = JSON.toJSONString(msg);
+				targetSession.getBasicRemote().sendText(msgJson);
+			}else{
+				System.out.println("好友 "+msg.getToUserName()+" 不在线");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
