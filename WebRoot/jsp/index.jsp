@@ -103,6 +103,12 @@ for(int i=0;i<allAlbums.size();i++){
 
 JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"; 
 String allAlbumsJsonString = JSON.toJSONString(allAlbums,SerializerFeature.WriteDateUseDateFormat);
+
+//获取轮播图图片，规则：先从第一个相册取，如果不够，继续下一个，直到取够或者所有相册都取完
+AlbumService albumService = new AlbumServiceImpl();
+int count = 5;
+List<Picture> bannerPics = albumService.getBannerPics(user.getId(), count);
+String bannerPicsString = JSON.toJSONString(bannerPics);
 %>
 
 <!DOCTYPE html>
@@ -147,6 +153,17 @@ String allAlbumsJsonString = JSON.toJSONString(allAlbums,SerializerFeature.Write
 			
 			/* 所有相册 */
 			var albumArrayObj = JSON.parse('<%=allAlbumsJsonString%>');
+			
+			/* 轮播图 */
+			var bannerPicsObj = JSON.parse('<%=bannerPicsString%>');
+			var bannerPhotoes = [];
+			for(var i=0;i<bannerPicsObj.length;i++){
+				var picObj = bannerPicsObj[i];
+				var picUrl = basePath+"pictures/"+picObj.userId+"/"+picObj.albumId+"/"+picObj.name;
+				var photo = {"i":i+1,"img":picUrl};
+				bannerPhotoes.push(photo);
+			}
+			
 			
 		</script>
 	
@@ -634,6 +651,8 @@ String allAlbumsJsonString = JSON.toJSONString(allAlbums,SerializerFeature.Write
 		showMoments();
 		//相册
 		album.initAlbum(); 
+		//图片轮播配置
+		sliderConfig();
 	</script>
 	
 </html>

@@ -28,4 +28,10 @@ public interface AlbumService {
 	 * @param args 要保存的图片数据，依次是userid，albumid，picname
 	 */
 	void addPictures(List<Picture> pics)throws Exception;
+	/**
+	 * 获取轮播图图片.获取规则：先从第一个相册获取，如果取够了，就返回，否则去下一个相册获取，依次类推，直到取够
+	 * @param userId 用户ID
+	 * @param size	图片个数
+	 */
+	List<Picture> getBannerPics(int userId,int count);
 }

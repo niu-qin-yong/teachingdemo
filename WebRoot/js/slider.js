@@ -1,20 +1,11 @@
 function sliderConfig() {
-	slider.photos = [{
-		"i" : 1,
-		"img" : "imgs/banner_01.jpg"
-	}, {
-		"i" : 2,
-		"img" : "imgs/banner_02.jpg"
-	}, {
-		"i" : 3,
-		"img" : "imgs/banner_03.jpg"
-	}, {
-		"i" : 4,
-		"img" : "imgs/banner_04.jpg"
-	}, {
-		"i" : 5,
-		"img" : "imgs/banner_05.jpg"
-	}];
+	slider.photos = bannerPhotoes;
+	
+	//如果没有图片轮播，则不显示任何DOM
+	if(slider.photos.length == 0){
+		return;
+	}
+	
 	slider.init();
 }
 
@@ -39,7 +30,7 @@ var slider = {
 		//初始化下标数字
 		var node = "";
 		for (var i = 0; i < self.photos.length; i++) {
-			node += "<li>" + self.photos[i].i + "</li>"
+			node += "<li>" + self.photos[i].i + "</li>";
 		}
 		self.indexUl.innerHTML = node;
 		self.updateIndex(self.curIndex);
