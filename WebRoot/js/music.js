@@ -204,6 +204,52 @@ var player = {
 			jia.css("display","none");
 			//疑问 先执行了 jia 的display none，那为什么还能执行到 jia 的 onmouseover呢？
 			console.log("hideRelay share mouseout,jia diaplay none")
+		},
+		showLike : function(ele){
+			//获取元素的相对位置，距离浏览器窗体左上角的位置
+			var left = ele.getBoundingClientRect().left;
+			var top =ele.getBoundingClientRect().top;
+			
+			//页面的垂直滚动距离
+			var scrollTop = document.body.scrollTop;  		
+			
+			//设置DOM的位置
+			var topOffset = -20;
+			var count = $("#like-count");
+			count.css("position","absolute");
+			count.css("left",left);
+			count.css("top",top+scrollTop+topOffset);
+			
+			//设置点赞数
+			var value = ele.dataset.likeValue;
+			count.html(value);
+			
+			//显示
+			count.css("display","block");
+		},
+		hideLike : function(){
+			var count = $("#like-count");
+			count.css("display","none");
+		},
+		addLike : function(ele){
+			//1.先修改前端界面
+			var oldValue = ele.dataset.likeValue;
+			
+			var end = oldValue.indexOf("喜欢");
+			var oldCount = oldValue.substring(0,end);
+			var newCount = Number(oldCount)+Number(1);
+			
+			var count = $("#like-count");
+			count.html(newCount+"喜欢");
+			
+			$(ele).attr("data-like-value",newCount+"喜欢");
+			
+			//2.提交服务器修改数据库中的值
+			var musicId = ele.parentNode.dataset.id;
+			var url = basePath+"servlet/AddMusicLikeServlet?id="+musicId+"&count="+newCount;
+			$.get(url,function(data,state){
+				
+			});
 		}
 }
 

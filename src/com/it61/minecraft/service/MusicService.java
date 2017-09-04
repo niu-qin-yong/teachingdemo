@@ -40,5 +40,11 @@ public interface MusicService {
 	 * @return
 	 */
 	List<Music> getFriendMusic(List<Integer> userIds);
-	
+	/**
+	 * 点赞
+	 * @param id
+	 * @param count
+	 * @throws Exception
+	 */
+	void addLike(int id,int count)throws Exception;
 }

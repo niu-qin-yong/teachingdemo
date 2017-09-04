@@ -85,6 +85,11 @@
     <servlet-name>MusicUploadServet</servlet-name>
     <servlet-class>com.it61.minecraft.web.servlet.MusicUploadServet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AddMusicLikeServlet</servlet-name>
+    <servlet-class>com.it61.minecraft.web.servlet.AddMusicLikeServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -198,6 +203,10 @@
   <servlet-mapping>
     <servlet-name>MusicUploadServet</servlet-name>
     <url-pattern>/servlet/MusicUploadServet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddMusicLikeServlet</servlet-name>
+    <url-pattern>/servlet/AddMusicLikeServlet</url-pattern>
   </servlet-mapping>
   <!--统一处理编码的过滤器  -->
   <!-- 定义过滤器 -->

@@ -103,4 +103,9 @@ public class MusicDAO implements OnTransformListener<Music> {
 		
 		temp.update(sql, args);
 	}
+	public void addLike(int id, int count) throws Exception {
+		String sql = "update mc_music set music_like_count=? where ID=?";
+		Object[] args = {count,id};
+		temp.update(sql, args);
+	}
 }

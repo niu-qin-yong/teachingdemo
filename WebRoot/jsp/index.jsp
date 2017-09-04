@@ -685,7 +685,10 @@ String friendMusicsJsonString = JSON.toJSONString(friendMusics);
 			<a class="jiathis_button_renren"></a>
 			<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 		</div>
-		<!-- JiaThis Button END -->					
+		<!-- JiaThis Button END -->	
+		
+		<!-- 音乐点赞数 -->
+		<span id="like-count"></span>						
 	</body>
 	
 	<!-- 引入kalendae日历插件 -->
