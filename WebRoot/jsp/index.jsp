@@ -89,6 +89,7 @@ PropertyFilter filter = new PropertyFilter(){
 };
 String momentsString = JSON.toJSONString(moments,filter,SerializerFeature.WriteDateUseDateFormat); 
 
+/* 相册 */
 //获取所有相册
 AlbumService service = new AlbumServiceImpl();
 List<Album> allAlbums = service.getAllAlbums(user.getId());
@@ -109,6 +110,25 @@ AlbumService albumService = new AlbumServiceImpl();
 int count = 5;
 List<Picture> bannerPics = albumService.getBannerPics(user.getId(), count);
 String bannerPicsString = JSON.toJSONString(bannerPics);
+
+/* 音乐 */
+//获取音乐馆歌曲
+MusicService ms = new MusicServiceImpl();
+List<Music> musics = ms.getSystemMusic();
+String muscisJson = JSON.toJSONString(musics);
+
+//获取我的音乐
+List<Music> mineMusics = ms.getMineMusic(user.getId());
+String mineMusicsJsonString = JSON.toJSONString(mineMusics);
+
+//获取好友音乐
+List<Integer> friendIds = new ArrayList<Integer>();
+for(Friend friend : allFriends){
+	friendIds.add(friend.getFriId());
+}
+List<Music> friendMusics = ms.getFriendMusic(friendIds);
+String friendMusicsJsonString = JSON.toJSONString(friendMusics);
+
 %>
 
 <!DOCTYPE html>
@@ -165,6 +185,12 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 				bannerPhotoes.push(photo);
 			}
 			
+			/* 音乐馆音乐 */
+			var systemMusicObj = JSON.parse('<%=muscisJson%>');
+			/* 我的音乐 */
+			var mineMusicObj = JSON.parse('<%=mineMusicsJsonString%>');
+			/* 好友音乐 */
+			var friendMusicObj = JSON.parse('<%=friendMusicsJsonString%>');
 			
 		</script>
 	
@@ -420,36 +446,21 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 					</div>
 					<div id="music" class="showcontent">
 						<div id="music-head">
-							<div id="myMusic" onclick="player.showAllMusic()" title="显示全部音乐"></div>
+							<div id="allMusic" onclick="player.showMusics('music-content')" title="显示全部音乐"></div>
+							<div onclick="player.showMusics('music-mine')">我的音乐</div>
+							<div onclick="player.showMusics('music-friend')">好友音乐</div>
+							<input type="text" placeholder="输入单曲或歌手,按回车键搜索" id="music_search_input">
+						</div>
+						<div id="music-content" class="music-container">
+						</div>
+						<div id="music-mine" class="music-container">
 							<div>
-								<input type="text" placeholder="输入单曲或歌手,按回车键搜索" id="music_search_input">
+								<button id="music-upload-btn" onclick="showMusicUpload()">上传歌曲</button>
 							</div>
 						</div>
-						<div id="music-content">
-							<div class="music-list" data-key="1">
-								<span></span>
-								<!-- 海报 -->
-								<div class="music-poster">
-									<!-- 相框 -->
-									<div class="photo-frame"></div>
-								</div>
-								<div class="music-share"></div>
-								<div class="music-like"></div>
-								<div class="music-control"></div>							
-							</div>
-							<div class="music-list" data-key="2">
-								<span></span>
-								<!-- 海报 -->
-								<div class="music-poster">
-									<!-- 相框 -->
-									<div class="photo-frame"></div>
-								</div>
-								<div class="music-share"></div>
-								<div class="music-like"></div>
-								<div class="music-control"></div>
-							</div>						
+						<div id="music-friend" class="music-container">
 						</div>
-						<div id="music-search">
+						<div id="music-search" class="music-container">
 						</div>
 						<audio id="player" autoplay="autoplay" loop="true"></audio>
 					</div>
@@ -629,7 +640,8 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 					</button>
 				</div>
 			</div>
-		</div>			
+		</div>
+				
 	</body>
 	
 	<!-- 引入kalendae日历插件 -->
@@ -653,8 +665,6 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 	<script src="<%=basePath %>js/chat.js"></script>
 	
 	<script type="text/javascript">
-		//音乐播放
-		player.init();	  
 		//显示校友录
 		showSchoolmates();
 		//显示好友
@@ -673,6 +683,8 @@ String bannerPicsString = JSON.toJSONString(bannerPics);
 		sliderConfig();
 		//聊天
 		Chat.initialize();
+		//音乐播放
+		player.init();
 	</script>
 	
 </html>

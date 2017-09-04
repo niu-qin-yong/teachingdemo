@@ -9,7 +9,29 @@ public class Music {
 	private String title;
 	private String singer;
 	private int likeCount;
+	private int serverSide;
+	private int userId;
 	
+	public Music(){
+		
+	}
+	
+	public Music(int id, String audio, String poster, String title,
+			String singer, int likeCount, int serverSide,int userId) {
+		super();
+		this.id = id;
+		this.audio = audio;
+		this.poster = poster;
+		this.title = title;
+		this.singer = singer;
+		this.likeCount = likeCount;
+		this.serverSide = serverSide;
+		this.userId = userId;
+	}
+
+
+
+
 	public String getAudio() {
 		return audio;
 	}
