@@ -26,7 +26,14 @@ var player = {
 				self.searchMusic();
 			}
 		};
-	
+		
+		//给转发按钮设置鼠标滑入划出事件
+		//疑问：先执行了 jia 的display none，那为什么还能执行到 jia 的 onmouseover呢？
+		var jia = $("#jiathis");
+		jia.attr("onmouseover",'javascript:console.log("jiathis onmouseover");$("#jiathis").css("display","block");');
+		jia.attr("onmouseout",'javascript:$("#jiathis").css("display","none");');
+		//默认转发按钮不显示
+		self.hideRelay();  
 	  },
 	  /*更新界面*/
 	  updateView : function(source,subDivClassName){
@@ -110,6 +117,7 @@ var player = {
 				poster.attr("class","music-poster");
 				item.append(poster);
 				
+				//分享
 				var share = $("<div></div>");
 				share.attr("class","music-share");
 				share.attr("id","share"+musicJson.id);
@@ -168,6 +176,34 @@ var player = {
 				//显示搜索界面
 				self.showMusics("music-search");	
 			});
+		},
+		showRelay : function(ele){
+			//获取元素的相对位置，距离浏览器窗体左上角的位置
+			var left = ele.getBoundingClientRect().left;
+			var top =ele.getBoundingClientRect().top;
+			
+			//页面的垂直滚动距离
+			var scrollTop = document.body.scrollTop;  
+			
+			//设置转发DOM的位置
+			var topOffset = 15;
+			var jia = $("#jiathis");
+			jia.css("position","absolute");
+			jia.css("left",left);
+			jia.css("top",top+scrollTop+topOffset);
+			
+			//显示
+			jia.css("display","block");
+			
+			//修改转发配置变量的title值
+			var musicName = ele.parentNode.dataset.musicName;
+			jiathis_config.title = "我正在听《"+musicName+"》，不得不说真的很好听~";
+		},
+		hideRelay : function(ele){
+			var jia = $("#jiathis");
+			jia.css("display","none");
+			//疑问 先执行了 jia 的display none，那为什么还能执行到 jia 的 onmouseover呢？
+			console.log("hideRelay share mouseout,jia diaplay none")
 		}
 }
 

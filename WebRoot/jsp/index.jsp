@@ -191,6 +191,10 @@ String friendMusicsJsonString = JSON.toJSONString(friendMusics);
 			var mineMusicObj = JSON.parse('<%=mineMusicsJsonString%>');
 			/* 好友音乐 */
 			var friendMusicObj = JSON.parse('<%=friendMusicsJsonString%>');
+			/* 第三方分享的配置变量 */
+			jiathis_config = {
+				title:"我做的网站哦，进来看看嘛^_^"
+			}
 			
 		</script>
 	
@@ -671,7 +675,17 @@ String friendMusicsJsonString = JSON.toJSONString(friendMusics);
 				</button>
 			</div>
 		</div>	
-				
+		
+		<!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style_24x24" id="jiathis">
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+		</div>
+		<!-- JiaThis Button END -->					
 	</body>
 	
 	<!-- 引入kalendae日历插件 -->
@@ -679,6 +693,8 @@ String friendMusicsJsonString = JSON.toJSONString(friendMusics);
 	<script type="text/javascript" src="<%=basePath %>plugin/kalendae/js/kalendae.js"></script>
 	<!-- Viewer -->
 	<script type="text/javascript" src="<%=basePath %>plugin/viewer/viewer.js"></script>
+	<!-- 第三方分享插件 -->
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
 	<!-- JS引入 -->
 	<script src="<%=basePath %>js/elements.js"></script>
 	<script src="<%=basePath %>js/common.js"></script>
