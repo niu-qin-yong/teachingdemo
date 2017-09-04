@@ -605,7 +605,8 @@ String friendMusicsJsonString = JSON.toJSONString(friendMusics);
 					创建
 				</button>
 			</div>
-		</div>		
+		</div>
+				
 		<!-- 相册浏览对话框 -->
 		<div id="album-browser">
 			<div id="ab-header">
@@ -625,6 +626,7 @@ String friendMusicsJsonString = JSON.toJSONString(friendMusics);
 				</button>
 			</div>
 		</div>		
+		
 		<!-- 聊天对话框 -->
 		<div id="chatbox">
 			<div id="chatmain">
@@ -641,6 +643,34 @@ String friendMusicsJsonString = JSON.toJSONString(friendMusics);
 				</div>
 			</div>
 		</div>
+		
+		<!-- 音乐上传弹出框 -->
+		<div id="music-upload">
+			<div id="mu-header">
+				<div id="mu-header-title">
+					歌曲上传
+				</div>
+			</div>
+			<div id="mu-body">
+				<input id="music-upload-singer" placeholder="歌手名称"/>
+				<div class="music-upload-item-wrap">
+					<span class="mu-item-hint" id="mu-item-hint-audio">选择歌曲</span>
+					<input type="file" accept="audio/mpeg" id="music-upload-audio"/>
+				</div>
+				<div class="music-upload-item-wrap">
+					<span class="mu-item-hint" id="mu-item-hint-poster">选择封面</span>
+					<input type="file" accept="image/png,image/jpeg" id="music-upload-poster" />
+				</div>
+			</div>
+			<div id="mu-footer">
+				<button id="al-create" onclick="hideMusicUpload()">
+					关闭
+				</button>
+				<button id="al-close" onclick="onMusicUpload()">
+					上传
+				</button>
+			</div>
+		</div>	
 				
 	</body>
 	

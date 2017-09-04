@@ -16,6 +16,18 @@ public class MusicServiceImpl implements MusicService{
 	}
 
 	@Override
+	public void addMusics(Music musics) throws Exception {
+		MusicDAO dao = new MusicDAO();
+		dao.addMusics(musics);
+	}
+
+	@Override
+	public Music getLatestMusic(int userId) {
+		MusicDAO dao = new MusicDAO();
+		return dao.getLatestMusic(userId);
+	}
+
+	@Override
 	public List<Music> getSystemMusic() {
 		MusicDAO dao = new MusicDAO();
 		return dao.findSystemMusic();

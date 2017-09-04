@@ -12,6 +12,22 @@ public class Music {
 	private int serverSide;
 	private int userId;
 	
+	public int getServerSide() {
+		return serverSide;
+	}
+
+	public void setServerSide(int serverSide) {
+		this.serverSide = serverSide;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 	public Music(){
 		
 	}

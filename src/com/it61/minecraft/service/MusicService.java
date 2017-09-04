@@ -17,6 +17,18 @@ public interface MusicService {
 	 */
 	List<Music> searchMusic(String key);
 	/**
+	 * 用户上传歌曲
+	 * @param musics
+	 * @throws Exception
+	 */
+	void addMusics(Music musics)throws Exception;
+	/**
+	 * 获取某个用户最新上传的歌曲
+	 * @param userId
+	 * @return
+	 */
+	Music getLatestMusic(int userId);
+	/**
 	 * 获取我的音乐
 	 * @param userId
 	 * @return

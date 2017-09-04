@@ -83,5 +83,24 @@ public class MusicDAO implements OnTransformListener<Music> {
 		
 		return temp.queryAll(sql, args);
 	}
+	
+	public Music getLatestMusic(int userId) {
+		String sql = "select * from mc_music where music_user_id = ? order by music_upload_time desc limit 1";
+		Object[] args = {userId};
+		return temp.queryOne(sql, args);
+	}
 
+	public void addMusics(Music m) throws Exception {
+		String sql = "insert into mc_music(music_audio,music_poster,music_title,music_singer,music_server_side,music_user_id) values(?,?,?,?,?,?)";
+		//初始化参数数组
+		Object[] args = new Object[6];
+		args[0] = m.getMusic();
+		args[1] = m.getPoster();
+		args[2] = m.getTitle();
+		args[3] = m.getSinger();
+		args[4] = m.getServerSide();
+		args[5] = m.getUserId();
+		
+		temp.update(sql, args);
+	}
 }

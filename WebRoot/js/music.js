@@ -170,3 +170,109 @@ var player = {
 			});
 		}
 }
+
+//显示音乐上传弹出框
+function showMusicUpload(){
+	$("#music-upload").animate({top:'100px'},300,function(){
+		
+	});
+}
+//隐藏音乐上传弹出框
+function hideMusicUpload(){
+	$("#music-upload").animate({top:'-500px'},300,function(){
+		//隐藏后将原有输入数据清空
+		$("#music-upload-singer").val("");
+		$("#mu-item-hint-audio").html("选择音乐");
+		$("#mu-item-hint-poster").html("选择封面");
+		
+		//将input值置空
+		$("#music-upload-audio")[0].value = '';
+		$("#music-upload-poster")[0].value = '';
+	});	
+}
+//监听歌曲、封面输入框，内容有变化时显示文件名称
+$("#music-upload-poster").on("change",function(event){
+	var files = $(this)[0].files;
+	if(files.length > 0){
+		$("#mu-item-hint-poster").html(files[0].name);
+	}else{
+		$("#mu-item-hint-poster").html("选择封面");
+	}
+})
+$("#music-upload-audio").on("change",function(event){
+	var files = $(this)[0].files;
+	if(files.length > 0){
+		$("#mu-item-hint-audio").html(files[0].name);
+	}else{
+		$("#mu-item-hint-audio").html("选择音乐");
+	}
+})
+//上传音乐
+function onMusicUpload(){
+	//检查数据正确性
+	var singer = $("#music-upload-singer").val();
+	if(singer == "" || singer == null || singer == undefined){
+		alert("亲，歌手必须得填呢");
+		return;
+	}
+	var audioFiles = $("#music-upload-audio")[0].files;
+	if(audioFiles.length == 0){
+		alert("亲，要上传的音乐呢");
+		return;
+	} 
+	var posterFiles = $("#music-upload-poster")[0].files;
+	if(posterFiles.length == 0){
+		alert("亲，音乐封面给传一张呗");
+		return;
+	} 
+	
+	// 实例化一个表单数据对象
+	var formData = new FormData();
+	
+	//哪个用户上传
+	formData.append("userId",user.id);
+	//歌手
+	formData.append("singer",singer);
+	
+	//封面
+	var audioFile = audioFiles[0];
+	formData.append("music-cover",audioFile);
+	//音乐文件
+	var posterFile = posterFiles[0];
+	formData.append("music-audio",posterFile);
+	
+	//AJAX异步上传图片
+	$.ajax({
+	        url:basePath+"servlet/MusicUploadServet",
+	        type:"post",
+	        async: false,//同步 ，true 异步，默认异步
+	        data : formData,
+	        // 告诉jQuery不要去处理发送的数据
+	        processData : false,
+	        // 告诉jQuery不要去设置Content-Type请求头
+	        contentType : false,
+	        success:function(data,status){
+	        	console.log("上传图片成功后，服务端返回的数据："+data);
+	        	var musicObj = JSON.parse(data);
+	        	var musicObjs = [musicObj];
+	        	
+	        	player.createMusicNodeEle(musicObjs,"music-mine","music-mine-list");
+	        	
+	        	//更新界面
+				player.updateView(musicObjs,"music-mine-list");
+				
+				//隐藏音乐上传弹出框
+				hideMusicUpload();
+				
+				//告知用户上传成功
+				if(status == "success"){
+					alert("恭喜，上传成功!");
+				} 
+	        },
+	        error:function(data,status){
+	        	//隐藏音乐上传弹出框
+				hideMusicUpload();	        	
+	            alert("对不起,上传失败了...请赐我一死...");
+	        }
+	   });
+}
